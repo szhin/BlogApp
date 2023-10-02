@@ -92,6 +92,8 @@
 		var status = document.getElementById("status").value;
 		if (status == "success") {
 			swal("Congrats", "Account Created Successfully", "success");
+		} else if (status == "warning") {
+			swal("Sorry", "Email already exists", "warning")
 		}
 
 	</script>

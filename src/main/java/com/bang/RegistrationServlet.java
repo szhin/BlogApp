@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -33,30 +34,40 @@ public class RegistrationServlet extends HttpServlet {
 		RequestDispatcher dispatcher = null; // dispatcher: điều phối
 		
 		try {
-
-			Connection connection = DriverManager.getConnection(jdbcURL, usernamePostgres, passwordPostgres);
+			Connection connection = DriverManager.getConnection(jdbcURL, usernamePostgres, passwordPostgres);		
 			
-			String sql = "INSERT INTO users (uname, uemail, upw, umobile) VALUES (?, ?, ?, ?)";
+			// Check user already exists
+			String checkUserSql = "SELECT * FROM users WHERE uemail = ?";
+			PreparedStatement checkUserStatement = connection.prepareStatement(checkUserSql);
+			checkUserStatement.setString(1, uemail);
 			
-			PreparedStatement preState = connection.prepareStatement(sql);
+			ResultSet rs = checkUserStatement.executeQuery();
 			
-			preState.setString(1, uname);
-			preState.setString(2, uemail);
-			preState.setString(3, upw);
-			preState.setString(4, umobile);
-			
-			dispatcher = request.getRequestDispatcher("registration.jsp");
-			
-			int rowCount = preState.executeUpdate();
-			
-			if (rowCount > 0) {
-				System.out.println("A user has been inserted");
-				request.setAttribute("status", "success");
+			if (rs.next()) {
+				request.setAttribute("status", "warning");
+				
 			} else {
-				request.setAttribute("status", "failed");
-			}
+				// Insert user
+				String insertUserSql = "INSERT INTO users (uname, uemail, upw, umobile) VALUES (?, ?, ?, ?)";			
+				PreparedStatement insertUserStatement = connection.prepareStatement(insertUserSql);
+				insertUserStatement.setString(1, uname);
+				insertUserStatement.setString(2, uemail);
+				insertUserStatement.setString(3, upw);
+				insertUserStatement.setString(4, umobile);
+				
+				int rowCount = insertUserStatement.executeUpdate();
+							
+				if (rowCount > 0) {
+					System.out.println("A user has been inserted");
+					request.setAttribute("status", "success");
+				} else {
+					System.out.println("A user not has been inserted");
+					request.setAttribute("status", "failed");
+				}
+			}		
+			
 			System.out.println("Connected to Postgresql server");
-	
+			dispatcher = request.getRequestDispatcher("registration.jsp");
 			dispatcher.forward(request, response);
 			
 			connection.close();
