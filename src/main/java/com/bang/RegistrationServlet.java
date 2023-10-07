@@ -27,11 +27,19 @@ public class RegistrationServlet extends HttpServlet {
 		String passwordPostgres = "banguchiha1234";
 				
 		String uname = request.getParameter("name");
-		String uemail = request.getParameter("email");
 		String upw = request.getParameter("pass");
+		String uemail = request.getParameter("email");
+		String reupw = request.getParameter("re_pass");
 		String umobile = request.getParameter("contact");
 		
 		RequestDispatcher dispatcher = null; // dispatcher: điều phối
+		
+		if (!upw.equals(reupw)) {
+			request.setAttribute("status", "wrong repass");
+			dispatcher = request.getRequestDispatcher("registration.jsp");
+			dispatcher.forward(request, response);
+			return;
+		}
 		
 		try {
 			Connection connection = DriverManager.getConnection(jdbcURL, usernamePostgres, passwordPostgres);		
@@ -44,7 +52,7 @@ public class RegistrationServlet extends HttpServlet {
 			ResultSet rs = checkUserStatement.executeQuery();
 			
 			if (rs.next()) {
-				request.setAttribute("status", "warning");
+				request.setAttribute("status", "Email already");
 				
 			} else {
 				// Insert user

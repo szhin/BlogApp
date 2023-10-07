@@ -1,104 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+	<!DOCTYPE html>
+	<html lang="en">
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Register Account</title>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Đăng nhập</title>
+	
+		<link rel="stylesheet" href="./css/general.css">
+		<link rel="stylesheet" href="./css/main-styles.css">
+		<link rel="stylesheet" href="./css/form-styles.css">
+	</head>
 
-	<!-- Font Icon -->
-	<link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+	<body>
 
-	<!-- Main css -->
-	<link rel="stylesheet" href="css/style.css">
-</head>
+		<input type="hidden" id="status" value="<%= request.getAttribute("status") %>">
 
-<body>
+		<header class="header">
+			<div class="container navbar">
+				<a class="brand" href="index.jsp"><small>A</small>B
+					<small> B</small>log
+					<span>We are one</span>
+				</a>
+				<nav>
+					<ul class="nav-items">
+						<li class="nav-item">
+							<a class="nav-link" href="index.jsp">Trang chủ</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="forum.jsp">Diễn đàn</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="login.jsp">Đăng nhập</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link html-active" href="#">Đăng kí</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+		<section class="section-hero" style="background-image: url(./images/background-login.jpeg);">
+			<div class="overlay"></div>
+			<div class="container hero">
+				<!-- Sign in  Form -->
+				<section class="login-form">
+					<h2 class="form-title">Đăng kí</h2>
+					<form method="POST" action="register" id="register-form">
+						<div class="form-group">
+							<img src="./images/icons/user.png">
+							<input type="text" name="name" id="name" placeholder="Your name" required />
+						</div>
+						<div class="form-group">
+							<img src="./images/icons/email.png">
+							<input type="email" name="email" id="email" placeholder="Your Email" required />
+						</div>
+						<div class="form-group">
+							<img src="./images/icons/password.png">
+							<input type="password" name="pass" id="pass" placeholder="Password" required />
+						</div>
+						<div class="form-group">
+							<img src="./images/icons/re-password.png">
+							<input type="password" name="re_pass" id="re_pass" placeholder="Re-password" required />
+						</div>
+						<div class="form-group">
+							<img src="./images/icons/phone.png">
+							<input type="text" name="contact" id="contact" placeholder="Phone" required />
+						</div>
+						<div class="form-group form-button">
+							<input type="submit" name="signup" id="signup" class="form-submit" value="Register" />
+						</div>
+						
+						<p>Already have a account? <a href="login.jsp" class="dispatcher">Login here</a></p>
+					</form>
 
-	<input type="hidden" id="status" value="<%= request.getAttribute("status") %>">
-
-	<div class="main">
-
-		<!-- Sign up form -->
-		<section class="signup">
-			<div class="container">
-				<div class="signup-content">
-					<div class="signup-form">
-						<h2 class="form-title">Sign up</h2>
-
-						<form method="POST" action="register" class="register-form" id="register-form">
-							<div class="form-group">
-								<label for="name"><i
-										class="zmdi zmdi-account material-icons-name"></i></label>
-								<input type="text" name="name" id="name" placeholder="Your Name"
-									required />
-							</div>
-							<div class="form-group">
-								<label for="email"><i class="zmdi zmdi-email"></i></label> <input
-									type="email" name="email" id="email" placeholder="Your Email"
-									required />
-							</div>
-							<div class="form-group">
-								<label for="pass"><i class="zmdi zmdi-lock"></i></label> <input
-									type="password" name="pass" id="pass" placeholder="Password"
-									required />
-							</div>
-							<div class="form-group">
-								<label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-								<input type="password" name="re_pass" id="re_pass"
-									placeholder="Repeat your password" required />
-							</div>
-							<div class="form-group">
-								<label for="contact"><i class="zmdi zmdi-lock-outline"></i></label>
-								<input type="text" name="contact" id="contact" placeholder="Contact no"
-									required />
-							</div>
-							<div class="form-group">
-								<input type="checkbox" name="agree-term" id="agree-term"
-									class="agree-term" /> <label for="agree-term"
-									class="label-agree-term"><span><span></span></span>I
-									agree all statements in <a href="#" class="term-service">Terms
-										of service</a></label>
-							</div>
-							<div class="form-group form-button">
-								<input type="submit" name="signup" id="signup" class="form-submit"
-									value="Register" />
-							</div>
-						</form>
-					</div>
-					<div class="signup-image">
-						<figure>
-							<img src="images/signup-image.jpg" alt="sign up image">
-						</figure>
-						<a href="login.jsp" class="signup-image-link">I am already
-							member</a>
-					</div>
-				</div>
+				</section>
 			</div>
 		</section>
+		
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<link rel="stylesheet" href="alert/dist/sweetalert.css">
+		
+		<script type="text/javascript">
 
+			var status = document.getElementById("status").value;
+			if (status == "success") {
+				swal("Congrats", "Account Created Successfully", "success");
+			} else if (status == "Email already") {
+				swal("Sorry", "Email already exists", "warning")
+			} else if (status == "wrong repass") {
+				swal("Oh no!", "The password when re-entered is incorrect", "error");
+			}
 
-	</div>
+		</script>
+	</body>
 
-	<!-- JS -->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="js/main.js"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<link rel="stylesheet" href="alert/dist/sweetalert.css">
-
-	<script type="text/javascript">
-
-		var status = document.getElementById("status").value;
-		if (status == "success") {
-			swal("Congrats", "Account Created Successfully", "success");
-		} else if (status == "warning") {
-			swal("Sorry", "Email already exists", "warning")
-		}
-
-	</script>
-</body>
-
-
-
-</html>
+	</html>

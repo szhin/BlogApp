@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,400;1,700&display=swap");
+
+.login-form {
+  background-color: #fff;
+  color: #000;
+  padding: 40px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 16px;
+}
+
+.login-form form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-title {
+  display: flex;
+  font-size: 4rem;
+  margin-bottom: 4.2rem;
+  font-weight: 600;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2.4rem;
+}
+
+.form-group img {
+  margin-right: 8px;
+  height: 40px;
+  width: 40px;
+}
+
+.form-group input {
+  height: 4rem;
+  width: 50rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px #ced4da solid;
+  transition: 0.3s ease border;
+}
+
+.form-button .form-submit {
+  cursor: pointer;
+  border: none;
+  padding: 4px 10px;
+  margin-top: 3rem;
+  background-color: #66d9e8;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 10px;
+  width: 40rem;
+  transition: 0.5s linear;
+}
+
+.form-submit:hover {
+  background-color: #15aabf;
+}
+
+.dispatcher {
+	color:#15aabf !important;
+}
