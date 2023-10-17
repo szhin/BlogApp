@@ -14,6 +14,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.general.DatabaseUtil;
+
 /**
  * Servlet implementation class Login
  */
@@ -22,30 +24,21 @@ public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 3 thông tin này giúp kết nối với Postgres ở Connection bên dưới nè
-		String jdbcURL = "jdbc:postgresql://localhost:5432/blog";
-		String usernamePostgres = "postgres";
-		String passwordPostgres = "banguchiha1234";
-		
-		// Lấy thông tin đã nhập ở Browser bằng request
+
 		String uemail = request.getParameter("email");
 		String upw = request.getParameter("password");
 		
-		// HttpSession giúp set lại atribute "name" thành một String bất kì (bên dưới set thành uname)
-		// Việc này sẽ giúp điều hướng trang về index.jsp khi đã login
-		// Vì index.jsp có 1 lệnh điều hướng sang login.jsp (đó là khi name = null)
 		HttpSession session = request.getSession();
 		
 		// dispatcher sẽ giúp điều hướng trang web .jsp tới .jsp khác
 		RequestDispatcher dispatcher = null;
 		
-		try {		
-			Connection connection = DriverManager.getConnection(jdbcURL, usernamePostgres, passwordPostgres);
-			
+		try (Connection connection = DatabaseUtil.getConnection()) {		
+	
 			String sql = "SELECT * FROM users WHERE uemail = ? AND upw = ?";
 			
 			PreparedStatement preState = connection.prepareStatement(sql);
-			// 1, 2 đại diện cho thứ tự dấu "?" ở câu query sql
+
 			preState.setString(1, uemail);
 			preState.setString(2, upw);
 			
@@ -54,6 +47,10 @@ public class Login extends HttpServlet {
 			
 			if (rs.next()) {
 				dispatcher = request.getRequestDispatcher("forum.jsp");
+				
+				int userId = rs.getInt("id");
+				session.setAttribute("userId", userId);
+				
 				String firstName = rs.getString("uname");
 				session.setAttribute("fullname", firstName);
 				session.setAttribute("name", firstName.substring(firstName.lastIndexOf(" ") + 1));				

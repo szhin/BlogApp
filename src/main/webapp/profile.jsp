@@ -1,3 +1,9 @@
+<%@page import="com.general.DatabaseUtil"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <% if (session.getAttribute("name")==null) { response.sendRedirect("forum.jsp"); } %>
       <!DOCTYPE html>
@@ -7,6 +13,7 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Hồ sơ</title>
+            <link rel="stylesheet" href="alert/dist/sweetalert.css">
             <link rel="stylesheet" href="./css/forum-styles.css">
       </head>
 
@@ -17,9 +24,11 @@
                   <div id="sidebar">
                         <div id="profile-image" style="background-image: url(./images/default-img-profile.jpeg)">
                         </div>
-                        <div id="profile-name">	                      
-	                        	<%= session.getAttribute("name") == null ? "Chưa Login" : session.getAttribute("fullname") %>
-	                    </div>
+                        <% if (session.getAttribute("name") != null)  { %>
+	                 		<div id="profile-name">
+	                    		<%= session.getAttribute("fullname") %>
+	                  		</div>
+	              		<% } %>
                         <div id="profile-description">Always learning, always innovating!</div>
                         <div id="social-icons">
                               <a href="https://github.com/" target="_blank" id="sidebar-icon"><img
@@ -59,34 +68,58 @@
                               </div>
                         </section>
 						
-						<h2 class="collection-blog">Bài viết của bạn</h2>
-						
-                        <div class="your-blog-container">
-                              <a class="your-blog-title">Hành trình học lập trình của tôi</a>
-                              <span class="your-blog-time">13/10/2023</span>
-                        </div>
-                        <div class="your-blog-container">
-                              <a class="your-blog-title">Hành trình học lập trình của tôi</a>
-                              <span class="your-blog-time">13/10/2023</span>
-                        </div>
-                        <div class="your-blog-container">
-                              <a class="your-blog-title">Hành trình học lập trình của tôi</a>
-                              <span class="your-blog-time">13/10/2023</span>
-                        </div>
-                        <div class="your-blog-container">
-                              <a class="your-blog-title">Hành trình học lập trình của tôi</a>
-                              <span class="your-blog-time">13/10/2023</span>
-                        </div>
-                        <div class="your-blog-container">
-                              <a class="your-blog-title">Hành trình học lập trình của tôi</a>
-                              <span class="your-blog-time">13/10/2023</span>
-                        </div>
+<% 
 
-
+	try (Connection connection = DatabaseUtil.getConnection()) {
+	    int userId = (int) request.getSession().getAttribute("userId");
+	
+	    String selectBlogQuery = "SELECT * FROM blog_posts WHERE user_id = ?";
+	    PreparedStatement selectStatement = connection.prepareStatement(selectBlogQuery);
+	    selectStatement.setInt(1, userId);
+		
+	    ResultSet rs = selectStatement.executeQuery();
+	    
+	    if (!rs.next()) {
+	    %>
+	    	<h2 class="collection-blog">Bạn chưa tạo bài viết nào</h2>
+	    <%
+	    
+	    } else {
+	    	
+		%>
+			<h2 class="collection-blog">Bài viết của bạn</h2>
+		<%
+	    	do { 
+				String fullDateTime = rs.getString("creation_date");
+				String dateOnly = fullDateTime.split(" ")[0]; // Tách lấy phần ngày
+				
+				int blogId = rs.getInt("id");
+	
+		%>
+			<div class="your-blog-container">
+			    <a class="your-blog-title" href="blog?id=<%= blogId %>"><%= rs.getString("title") %></a>
+			    <span class="your-blog-time"><%= dateOnly %></span>
+			</div>
+<%
+	    } while (rs.next());
+%>
+<%
+    	}
+    	rs.close();
+   	 	selectStatement.close();
+   	 	connection.close();
+	} catch (SQLException e) {
+    	e.printStackTrace();
+	}
+%>
 
                   </div>
+                  
                   <div id="right-sidebar">
-                        aaaa
+                       <a class="brand" href="#"><small>A</small>B
+                              <small> B</small>log
+                              <span>We are one</span>
+                        </a>
                   </div>
             </div>
             <script>
@@ -109,7 +142,17 @@
                         closeCreatePost();
                   } */
             </script>
+			<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+			<script type="text/javascript">
 
+				var status = document.getElementById("status").value;
+				if (status == "success") {
+					swal("Success", "Your post created success", "success");
+				} else if (status == "error when create post") {
+					swal("Oh no", "Wrong something when create post", "warning");
+				}
+
+			</script>
       </body>
 
       </html>

@@ -204,6 +204,10 @@ html {
   resize: none;
 }
 
+.container-hero {
+	z-index: 3;
+}
+
 #overlay {
   display: none;
   position: fixed;
@@ -223,7 +227,7 @@ html {
   transform: translate(-50%, -50%);
   background: white;
   padding: 3rem 5rem;
-  z-index: 3;
+  z-index: 4;
   border-radius: 2rem;
   justify-content: center;
   align-items: center;
@@ -361,4 +365,9 @@ html {
   display: block;
   font-weight: 600;
   letter-spacing: 0.2rem;
+}
+
+.creator {
+	font-size: 2.5rem;
+	color: grey;
 }

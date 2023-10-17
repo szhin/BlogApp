@@ -44,4 +44,24 @@
     <servlet-name>CreatePost</servlet-name>
     <url-pattern>/CreatePost</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Blog</display-name>
+    <servlet-name>Blog</servlet-name>
+    <servlet-class>com.bang.Blog</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Blog</servlet-name>
+    <url-pattern>/Blog</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Forum</display-name>
+    <servlet-name>Forum</servlet-name>
+    <servlet-class>com.bang.Forum</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Forum</servlet-name>
+    <url-pattern>/Forum</url-pattern>
+  </servlet-mapping>
 </web-app>

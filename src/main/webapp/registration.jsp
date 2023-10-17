@@ -94,6 +94,12 @@
 			}
 
 		</script>
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+			    var emailInput = document.getElementById("name");
+			    emailInput.focus();
+			});
+		</script>
 	</body>
 
 	</html>

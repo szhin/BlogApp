@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.general.DatabaseUtil;
+
 /**
  * Servlet implementation class RegistrationServlet
  */
@@ -22,9 +24,6 @@ public class RegistrationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String jdbcURL = "jdbc:postgresql://localhost:5432/blog";
-		String usernamePostgres = "postgres";
-		String passwordPostgres = "banguchiha1234";
 				
 		String uname = request.getParameter("name");
 		String upw = request.getParameter("pass");
@@ -41,8 +40,7 @@ public class RegistrationServlet extends HttpServlet {
 			return;
 		}
 		
-		try {
-			Connection connection = DriverManager.getConnection(jdbcURL, usernamePostgres, passwordPostgres);		
+		try (Connection connection = DatabaseUtil.getConnection()) {	
 			
 			// Check user already exists
 			String checkUserSql = "SELECT * FROM users WHERE uemail = ?";
