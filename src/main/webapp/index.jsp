@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <% if (session.getAttribute("name")==null) { response.sendRedirect("login.jsp"); } %> --%>
 
       <!DOCTYPE html>
       <html lang="en">
@@ -37,11 +36,11 @@
                                                       "Hồ sơ" %>
                                           </a>
                                     </li>
-                                    <li class="nav-item">
-                                          <a class="nav-link" href="logout">
-                                                <%= session.getAttribute("name")==null ? "" : "Đăng xuất" %>
-                                          </a>
-                                    </li>
+   									<% if (session.getAttribute("name") != null) { %>
+	   									<li class="nav-item">
+	        								<a class="nav-link" href="logout">Đăng xuất</a>
+	        							</li>
+    								<% } %>
                               </ul>
                         </nav>
                   </div>
@@ -80,67 +79,7 @@
                   </div>
             </section>
 
-            <section class="section-2 hero-wrap" style="background-image: url(./images/background-index.jpeg);">
-                  <div class="overlay"></div>
-                  <div class="container">
-                        <span class="subheading">Choose us</span>
-                        <h2 class="heading-secondary">
-                              eeee
-                        </h2>
-                        <div class="col-3">
-                              <div class="item">
-                                    <a href="" class="img-item"
-                                          style="background-image: url(./images/background-index.jpeg);">
-                                          <span>Series 1</span>
-                                    </a>
-                                    <div class="item-description">
-                                          <h3>dddd</h3>
-                                          <p class="description">
-                                                kkkk
-                                          </p>
-                                    </div>
-                              </div>
-                              <div class="item">
-                                    <a href="" class="img-item"
-                                          style="background-image: url(./images/background-index.jpeg);">
-                                          <span>Series 2</span>
-                                    </a>
-                                    <div class="item-description">
-                                          <h3>kkkk</h3>
-                                          <p class="description">
-                                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam,
-                                                repellendus.
-                                                lit. Veniam,
-                                                repellendus.
-                                          </p>
-                                    </div>
-                              </div>
-                              <div class="item">
-                                    <a href="" class="img-item"
-                                          style="background-image: url(./images/background-index.jpeg);">
-                                          <span>Series 3</span>
-                                    </a>
-                                    <div class="item-description">
-                                          <h3>kkkk</h3>
-                                          <p class="description">
-                                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam,
-                                                repellendus.
-                                                lit. Veniam,
-                                                repellendus.
-                                          </p>
-                                    </div>
-                              </div>
-                        </div>
-                        <div class="progress">
-                              <div class="progress-wrap">
-                                    <div class="progress-bar">
-                                    </div>
-                              </div>
-                        </div>
 
-
-                  </div>
-            </section>
       </body>
 
       </html>

@@ -53,8 +53,9 @@ public class Login extends HttpServlet {
 			ResultSet rs = preState.executeQuery();
 			
 			if (rs.next()) {
-				dispatcher = request.getRequestDispatcher("index.jsp");	
+				dispatcher = request.getRequestDispatcher("forum.jsp");
 				String firstName = rs.getString("uname");
+				session.setAttribute("fullname", firstName);
 				session.setAttribute("name", firstName.substring(firstName.lastIndexOf(" ") + 1));				
 			} else {
 				request.setAttribute("status", "failed");

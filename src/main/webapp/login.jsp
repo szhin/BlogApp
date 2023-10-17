@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<% if (session.getAttribute("name")!=null) { response.sendRedirect("forum.jsp"); } %>
+
 	<!DOCTYPE html>
 	<html lang="en">
 
@@ -7,6 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>Đăng nhập</title>
+		<link rel="stylesheet" href="alert/dist/sweetalert.css">
 		<link rel="stylesheet" href="./css/general.css">
 		<link rel="stylesheet" href="./css/main-styles.css">
 		<link rel="stylesheet" href="./css/form-styles.css">
@@ -28,7 +31,7 @@
 							<a class="nav-link" href="index.jsp">Trang chủ</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="forum.html">Diễn đàn</a>
+							<a class="nav-link" href="forum.jsp">Diễn đàn</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link html-active" href="#">Đăng nhập</a>
@@ -66,8 +69,6 @@
 		</section>
 
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-		<link rel="stylesheet" href="alert/dist/sweetalert.css">
-		
 		<script type="text/javascript">
 
 			var status = document.getElementById("status").value;

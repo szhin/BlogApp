@@ -6,6 +6,7 @@ CREATE TABLE users (
 	umobile varchar(20) NOT NULL
 )
 
+
 INSERT INTO users (uname, uemail, upw, umobile)
 VALUES
 	('bang', 'bang@gmail.com', 'bang', '019282121')

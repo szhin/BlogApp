@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<% if (session.getAttribute("name")!=null) { response.sendRedirect("forum.jsp"); } %>
+
 	<!DOCTYPE html>
 	<html lang="en">
 
@@ -6,8 +8,8 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>Đăng nhập</title>
-	
+		<title>Đăng kí</title>
+		<link rel="stylesheet" href="alert/dist/sweetalert.css">
 		<link rel="stylesheet" href="./css/general.css">
 		<link rel="stylesheet" href="./css/main-styles.css">
 		<link rel="stylesheet" href="./css/form-styles.css">
@@ -50,7 +52,7 @@
 					<form method="POST" action="register" id="register-form">
 						<div class="form-group">
 							<img src="./images/icons/user.png">
-							<input type="text" name="name" id="name" placeholder="Your name" required />
+							<input type="text" name="name" id="name" placeholder="Your full name" required />
 						</div>
 						<div class="form-group">
 							<img src="./images/icons/email.png">
@@ -80,8 +82,6 @@
 		</section>
 		
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-		<link rel="stylesheet" href="alert/dist/sweetalert.css">
-		
 		<script type="text/javascript">
 
 			var status = document.getElementById("status").value;

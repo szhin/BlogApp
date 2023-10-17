@@ -34,4 +34,14 @@
     <servlet-name>Logout</servlet-name>
     <url-pattern>/Logout</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CreatePost</display-name>
+    <servlet-name>CreatePost</servlet-name>
+    <servlet-class>com.bang.CreatePost</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreatePost</servlet-name>
+    <url-pattern>/CreatePost</url-pattern>
+  </servlet-mapping>
 </web-app>
