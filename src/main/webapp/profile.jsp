@@ -1,3 +1,7 @@
+<%@page import="com.blog.dao.BlogDAO"%>
+<%@page import="com.blog.model.Blog"%>
+<%@page import="java.util.List"%>
+<%@page import="com.blog.service.BlogService"%>
 <%@page import="com.general.DatabaseUtil"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.ResultSet"%>
@@ -68,50 +72,33 @@
                               </div>
                         </section>
 						
-<% 
-
-	try (Connection connection = DatabaseUtil.getConnection()) {
-	    int userId = (int) request.getSession().getAttribute("userId");
-	
-	    String selectBlogQuery = "SELECT * FROM blog_posts WHERE user_id = ?";
-	    PreparedStatement selectStatement = connection.prepareStatement(selectBlogQuery);
-	    selectStatement.setInt(1, userId);
-		
-	    ResultSet rs = selectStatement.executeQuery();
-	    
-	    if (!rs.next()) {
-	    %>
-	    	<h2 class="collection-blog">Bạn chưa tạo bài viết nào</h2>
-	    <%
-	    
-	    } else {
-	    	
-		%>
-			<h2 class="collection-blog">Bài viết của bạn</h2>
-		<%
-	    	do { 
-				String fullDateTime = rs.getString("creation_date");
-				String dateOnly = fullDateTime.split(" ")[0]; // Tách lấy phần ngày
-				
-				int blogId = rs.getInt("id");
-	
-		%>
-			<div class="your-blog-container">
-			    <a class="your-blog-title" href="blog?id=<%= blogId %>"><%= rs.getString("title") %></a>
-			    <span class="your-blog-time"><%= dateOnly %></span>
-			</div>
-<%
-	    } while (rs.next());
-%>
-<%
-    	}
-    	rs.close();
-   	 	selectStatement.close();
-   	 	connection.close();
-	} catch (SQLException e) {
-    	e.printStackTrace();
-	}
-%>
+					<% 
+					    BlogService blogService = new BlogService();
+						
+					    int userId = (int) request.getSession().getAttribute("userId");
+					    
+					    if (blogService.isHaveBlog(userId)) {
+					%>
+					    <h2 class="collection-blog">Bài viết của bạn</h2>
+					<%
+					        for (Blog blog : blogService.getListUserBlogs()) {
+					            String fullDateTime = blog.getCreationDate().toString();
+					            String dateOnly = fullDateTime.split(" ")[0];
+					%>
+					            <div class="your-blog-container">
+					                <a class="your-blog-title" href="blog?id=<%= blog.getId() %>"><%= blog.getTitle() %></a>
+					                <span class="your-blog-time"><%= dateOnly %></span>
+					            </div>
+					<%
+					        }
+					
+					    } else {
+					%>
+					    <h2 class="collection-blog">Bạn chưa tạo bài viết nào</h2>
+					<%
+					    }
+					%>
+						
 
                   </div>
                   

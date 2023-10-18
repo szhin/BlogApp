@@ -1,3 +1,6 @@
+<%@page import="com.blog.model.Blog"%>
+<%@page import="java.util.List"%>
+<%@page import="com.blog.dao.BlogDAO"%>
 <%@page import="com.general.DatabaseUtil"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.ResultSet"%>
@@ -36,48 +39,30 @@
                   <div id="content" class="gap-forum-content">
                    
                    						
-<% 
-
-	try (Connection connection = DatabaseUtil.getConnection()) {
-		
-	    int userId = (int) request.getSession().getAttribute("userId");
+<%
+	BlogDAO blogDAO = new BlogDAO();
+	List<Blog> blogs = blogDAO.getAll();
 	
-	    String selectBlogQuery = "SELECT * FROM blog_posts ORDER BY id DESC";
-	    
-	    PreparedStatement selectStatement = connection.prepareStatement(selectBlogQuery);
-		
-	    ResultSet rs = selectStatement.executeQuery();
-	    
-	   	while (rs.next()) {
-	   		int blogId = rs.getInt("id");
-	      	String title = rs.getString("title");
-	      	String fullDateTime = rs.getString("creation_date");
-			String dateOnly = fullDateTime.split(" ")[0]; // Tách lấy phần ngày
+    for (Blog blog : blogs) {
+        int blogId = blog.getId();
+        String title = blog.getTitle();
+        String fullDateTime = blog.getCreationDate().toString();
+        String dateOnly = fullDateTime.split(" ")[0]; // Tách lấy phần ngày
 %>
-			<div class="blog-container">
-                              <a class="blog-category" href="entertain.jsp"
-                                    style="background-color: #176B87; color: #fff;">Giải trí</a>
-                              <a class="your-blog-title" href="blog?id=<%=blogId %>"><%=title %></a>
-                              <div class="blog-details">
-                                    <span id="sidebar-icon"><img src="./images/icons/schedule.png"></span>
-                                    <span><%=dateOnly %></span>
-                                    <span id="sidebar-icon"><img src="./images/icons/clock.png"></span>
-                                    <span>5 phút đọc</span>
-                              </div>
-                        </div>
-<% 			
-			
-	   	}
-	    
-    	rs.close();
-   	 	selectStatement.close();
-   	 	connection.close();
-	} catch (SQLException e) {
-    	e.printStackTrace();
-	}
+        <div class="blog-container">
+            <a class="blog-category" href="entertain.jsp" style="background-color: #176B87; color: #fff;">Giải trí</a>
+            <a class="your-blog-title" href="blog?id=<%= blogId %>"><%= title %></a>
+            <div class="blog-details">
+                <span id="sidebar-icon"><img src="./images/icons/schedule.png"></span>
+                <span><%= dateOnly %></span>
+                <span id="sidebar-icon"><img src="./images/icons/clock.png"></span>
+                <span>5 phút đọc</span>
+            </div>
+        </div>
+<%
+    }
 %>
-                        
-
+				
                   </div>
                   <div id="right-sidebar">
                        <a class="brand" href="#"><small>A</small>B

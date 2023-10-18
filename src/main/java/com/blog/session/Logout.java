@@ -1,4 +1,4 @@
-package com.bang;
+package com.blog.session;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

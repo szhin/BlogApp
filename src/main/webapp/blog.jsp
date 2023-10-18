@@ -48,7 +48,7 @@
                             		<p>Không có quyền xem blog này.</p>
                         	<% } else { %>
                             		<div class="blog-container">
-                                        <a class="blog-title" style="font-size: 4.5rem;"><%= request.getAttribute("blogTitle") %></a>
+                                        <a class="blog-title" style="font-size: 4.5rem; line-height: 6rem; margin-bottom: 1.5rem;"><%= request.getAttribute("blogTitle") %></a>
                                        	<div class="blog-creator">
                                        		<span id="sidebar-icon"><img src="./images/icons/author.png"></span>
 	                                    	<span><%= request.getAttribute("blogCreator") %></span>   
