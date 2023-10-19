@@ -2,12 +2,13 @@ package com.blog.dao;
 
 import java.util.List;
 
-public interface IDAO<T> {
-
-	 void insert(T t);
-	 void update(T t);
-	 void delete(T t);
-	 T get(int id);
-	 List<T> getAll();
+// Data Access Object (DAO) Pattern
+public interface IDAO<O> {
+	
+	 void insert(O o);
+	 void update(O o);
+	 boolean delete(int id);
+	 O get(int id);
+	 List<O> getAll();
 	 
 }

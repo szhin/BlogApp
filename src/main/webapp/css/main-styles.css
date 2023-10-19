@@ -15,7 +15,6 @@
 .navbar {
   display: flex;
   justify-content: space-between;
-  flex-direction: row;
   align-items: center;
 }
 
@@ -59,7 +58,7 @@
 
 .nav-item .html-active {
   color: #66d9e8;
-}
+} 
 .nav-link {
   padding: 1.92rem 2.5rem;
   font-size: 1.6rem;

@@ -74,6 +74,8 @@
 			var status = document.getElementById("status").value;
 			if (status == "failed") {
 				swal("Sorry", "Wrong Username or Password", "error");
+			} else if (status == "deleted") {
+				swal("Success", "Account deleted successful", "success");
 			}
 
 		</script>

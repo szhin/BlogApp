@@ -10,6 +10,8 @@ import java.util.List;
 import com.blog.connection.DatabaseUtil;
 import com.blog.model.User;
 
+import jakarta.servlet.http.HttpSession;
+
 public class UserDAO implements IDAO<User> {
 	
 	private DatabaseUtil databaseUtil;
@@ -59,14 +61,22 @@ public class UserDAO implements IDAO<User> {
 	}
 
 	@Override
-	public void delete(User user) {
+	public boolean delete(int id) {
 		Connection connection = databaseUtil.getConnection();
-        String query = "DELETE FROM " + TABLE_NAME + " WHERE id = ?";
-
+		String query = "DELETE FROM " + TABLE_NAME + " WHERE id = ?";
+             
         try {
             PreparedStatement preStatement = connection.prepareStatement(query);
-            preStatement.setInt(1, user.getId());
-            preStatement.executeUpdate();
+            preStatement.setInt(1, id);
+            int rowsAffected = preStatement.executeUpdate();
+            
+            if (rowsAffected > 0) {
+                // Xóa thành công
+                return true;
+            } else {
+                // Không có hàng nào bị xóa (xóa không thành công)
+                return false;
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

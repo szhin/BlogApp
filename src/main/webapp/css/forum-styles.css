@@ -371,3 +371,8 @@ html {
 	font-size: 2.5rem;
 	color: grey;
 }
+
+.sidebar-setting {
+	color: red;
+	font-size: 16px !important;
+}

@@ -31,14 +31,19 @@ public class Login extends HttpServlet {
 		UserService userService = new UserService();
 			
 		if (userService.login(uemail, upw)) {
-			dispatcher = request.getRequestDispatcher("forum.jsp");
+			
+			dispatcher = request.getRequestDispatcher("profile.jsp");
 			
 			int userId = userService.getIdUserLogin();
 			session.setAttribute("userId", userId);
 			
-			String firstName = userService.getUnameLogin();
-			session.setAttribute("fullname", firstName);
-			session.setAttribute("name", firstName.substring(firstName.lastIndexOf(" ") + 1));				
+			String fullname = userService.getUnameLogin();
+			
+			session.setAttribute("fullname", fullname);
+			session.setAttribute("userEmail", userService.getUemailLogin());
+			session.setAttribute("userPhone", userService.getUphoneLogin());
+			session.setAttribute("userPassword", userService.getUpasswordLogin());
+			session.setAttribute("name", fullname.substring(fullname.lastIndexOf(" ") + 1));				
 		} else {
 			request.setAttribute("status", "failed");
 			dispatcher = request.getRequestDispatcher("login.jsp");

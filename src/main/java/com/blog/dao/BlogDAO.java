@@ -21,13 +21,11 @@ public class BlogDAO implements IDAO<Blog> {
 	}
 
 	@Override
-	public void insert(Blog blog) {
-		
+	public void insert(Blog blog) {	
 		Connection connection = databaseUtil.getConnection();
 		String query = "INSERT INTO " + TABLE_NAME +  " (user_id, title, content) VALUES (?, ?, ?)";
 		
-		try {
-			
+		try {		
 			PreparedStatement preStatement = connection.prepareStatement(query);
 			preStatement.setInt(1, blog.getUserId());
 			preStatement.setString(2, blog.getTitle());
@@ -35,15 +33,12 @@ public class BlogDAO implements IDAO<Blog> {
 			preStatement.executeUpdate();
 			
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
-			
+			throw new RuntimeException(e);	
 		} 
-		
 	}
 
 	@Override
-	public void update(Blog blog) {
-		
+	public void update(Blog blog) {	
 		Connection connection = databaseUtil.getConnection();
         String query = "UPDATE " + TABLE_NAME + " SET title = ?, content = ? WHERE id = ?";
         
@@ -52,25 +47,36 @@ public class BlogDAO implements IDAO<Blog> {
             preStatement.setString(1, blog.getTitle());
             preStatement.setString(2, blog.getContent());
             preStatement.setInt(3, blog.getId());
-            preStatement.executeUpdate(); // Sử dụng `executeUpdate` thay vì `execute`
+            preStatement.executeUpdate(); 
+            
         } catch (SQLException e) {
             throw new RuntimeException(e);
+            
         }
 		
 	}
 
 	@Override
-	public void delete(Blog blog) {
+	public boolean delete(int id) {
 		Connection connection = databaseUtil.getConnection();
         String query = "DELETE FROM " + TABLE_NAME + " WHERE id = ?";
         
         try {
             PreparedStatement preStatement = connection.prepareStatement(query);
-            preStatement.setInt(1, blog.getId());
-            preStatement.executeUpdate(); 
+            preStatement.setInt(1, id);
+            int rowsAffected = preStatement.executeUpdate();
+            
+            if (rowsAffected > 0) {
+                // Xóa thành công
+                return true;
+            } else {
+                // Không có hàng nào bị xóa (xóa không thành công)
+                return false;
+            }
             
         } catch (SQLException e) {
             throw new RuntimeException(e);
+            
         }	
 	}
 

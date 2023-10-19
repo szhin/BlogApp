@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<% if (session.getAttribute("name")==null) { response.sendRedirect("profile.jsp"); } %>
       <!DOCTYPE html>
       <html lang="en">
 
@@ -40,41 +41,24 @@
 	             
 	                        <a href="profile.jsp" id="sidebar-items">
 	                              <span id="sidebar-icon"><img src="./images/icons/create-post.png"></span>
-	                              <span id="home-text" class="active-forum">Đăng bài</span>
+	                              <span id="home-text">Đăng bài</span>
 	                        </a>
-	                        <% if (session.getAttribute("name") != null) { %>
-	                        <a href="setting.jsp" id="sidebar-items" style="position: fixed; bottom: 60px;">
+	                        
+	                        <a href="#" id="sidebar-items" style="position: fixed; bottom: 60px;">
 	                              <span id="sidebar-icon"><img src="./images/icons/setting.png"></span>
 	                              <span id="home-text" class="sidebar-setting">Cài đặt</span>
 	                        </a>
-	                        <% } %>
                         </div>
 
                   </div>
                   <div id="content" class="gap-profile-content">
-                        <div id="blog-content">
-                        	<% if (session.getAttribute("status")=="error" ) {%>
-                            		<p>Không có quyền xem blog này.</p>
-                        	<% } else { %>
-                            		<div class="blog-container">
-                                        <a class="blog-title" style="font-size: 4.5rem; line-height: 6rem; margin-bottom: 1.5rem;"><%= request.getAttribute("blogTitle") %></a>
-                                       	<div class="blog-creator">
-                                       		<span id="sidebar-icon"><img src="./images/icons/author.png"></span>
-	                                    	<span><%= request.getAttribute("blogCreator") %></span>   
-                                       	</div>
-                                        <div class="blog-details" style="margin-bottom: 2rem;">
-	                                        <span id="sidebar-icon"><img src="./images/icons/schedule.png"></span>
-	                                        <span><%= request.getAttribute("blogTime") %></span>
-	                                        <span id="sidebar-icon"><img src="./images/icons/clock.png"></span>
-	                                        <span>6 phút đọc</span>
-	                                       
-                                    	</div>                                  	
-                                    	<div class="blog-content">         		   
-                                            <p class="content"><%= request.getAttribute("blogContent") %></p>           
-                                   		</div>              
-                                    </div>  
-                        	<% } %>      
-                        </div>
+                        <div id="blog-content" style="font-size: 24px; display: flex; flex-direction: column; gap: 3rem;">
+						    <p>Bạn có chắc chắn muốn xóa tài khoản không?</p>
+						    <form action="deleteUser" method="post">
+						        <input type="submit" name="delete" value="Có">
+						        <input type="submit" name="cancel" value="Không">
+						    </form>   
+	                    </div>
                   </div>
                   <div id="right-sidebar">
                        <a class="brand" style="position: fixed; top: 50px;" href="#"><small>A</small>B
@@ -90,8 +74,10 @@
             <script type="text/javascript">
 
                   var status = document.getElementById("status").value;
-                  if (status == "error") {
-                        swal("Sorry", "Something wrong", "error");
+                  if (status == "deleted") {
+                        swal("Success", "Your account has been deleted", "success");
+                  } else if (status == "failed delete") {
+                	  swal("Failed", "Cannot delete", "error");
                   }
 
             </script>

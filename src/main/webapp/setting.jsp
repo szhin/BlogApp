@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<% if (session.getAttribute("name")==null) { response.sendRedirect("profile.jsp"); } %>
       <!DOCTYPE html>
       <html lang="en">
 
       <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Blog</title>
+            <title>Settings</title>
             <link rel="stylesheet" href="alert/dist/sweetalert.css">
             <link rel="stylesheet" href="./css/forum-styles.css">
       </head>
@@ -40,40 +41,32 @@
 	             
 	                        <a href="profile.jsp" id="sidebar-items">
 	                              <span id="sidebar-icon"><img src="./images/icons/create-post.png"></span>
-	                              <span id="home-text" class="active-forum">Đăng bài</span>
+	                              <span id="home-text">Đăng bài</span>
 	                        </a>
-	                        <% if (session.getAttribute("name") != null) { %>
-	                        <a href="setting.jsp" id="sidebar-items" style="position: fixed; bottom: 60px;">
+	                        
+	                        <a href="#" id="sidebar-items" style="position: fixed; bottom: 60px;">
 	                              <span id="sidebar-icon"><img src="./images/icons/setting.png"></span>
 	                              <span id="home-text" class="sidebar-setting">Cài đặt</span>
 	                        </a>
-	                        <% } %>
                         </div>
 
                   </div>
                   <div id="content" class="gap-profile-content">
-                        <div id="blog-content">
-                        	<% if (session.getAttribute("status")=="error" ) {%>
-                            		<p>Không có quyền xem blog này.</p>
-                        	<% } else { %>
-                            		<div class="blog-container">
-                                        <a class="blog-title" style="font-size: 4.5rem; line-height: 6rem; margin-bottom: 1.5rem;"><%= request.getAttribute("blogTitle") %></a>
-                                       	<div class="blog-creator">
-                                       		<span id="sidebar-icon"><img src="./images/icons/author.png"></span>
-	                                    	<span><%= request.getAttribute("blogCreator") %></span>   
-                                       	</div>
-                                        <div class="blog-details" style="margin-bottom: 2rem;">
-	                                        <span id="sidebar-icon"><img src="./images/icons/schedule.png"></span>
-	                                        <span><%= request.getAttribute("blogTime") %></span>
-	                                        <span id="sidebar-icon"><img src="./images/icons/clock.png"></span>
-	                                        <span>6 phút đọc</span>
-	                                       
-                                    	</div>                                  	
-                                    	<div class="blog-content">         		   
-                                            <p class="content"><%= request.getAttribute("blogContent") %></p>           
-                                   		</div>              
-                                    </div>  
-                        	<% } %>      
+                        <div id="blog-content" style="font-size: 24px; display: flex; flex-direction: column; gap: 3rem;">
+                        		<h1 style="margin-bottom: 20px;">Thông tin tài khoản</h1>
+						        <p>Họ và tên: <%= session.getAttribute("fullname") %>
+						        </p>
+						        <p>Email: <%= session.getAttribute("userEmail") %>
+						        </p>
+						        <p>Mật khẩu: <%= session.getAttribute("userPassword") %></p>
+						        <p>Mobile: <%= session.getAttribute("userPhone") %>
+						        </p>
+
+						        <!-- Chức năng chỉnh sửa -->
+						        <a href="editProfile.jsp">Chỉnh sửa</a>
+						
+						        <!-- Chức năng xóa tài khoản -->
+						        <a href="confirmDelete.jsp" style="color: red;">Xóa tài khoản</a>     
                         </div>
                   </div>
                   <div id="right-sidebar">
@@ -84,14 +77,12 @@
                   </div>
             </div>
 
-
-
             <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
             <script type="text/javascript">
 
                   var status = document.getElementById("status").value;
-                  if (status == "error") {
-                        swal("Sorry", "Something wrong", "error");
+                  if (status == "delete cancel") {
+                        swal("OK", "Bạn đã không xoá tài khoản, "warning");
                   }
 
             </script>

@@ -12,12 +12,39 @@ public class UserService {
 	private static final String TABLE_NAME = "users";
 	private int idUserLogin;
 	private String unameLogin;
+	private String uemailLogin;
+	private String uphoneLogin;
+	private String upasswordLogin;
 	
 	public UserService() {
 		databaseUtil = new DatabaseUtil();
 		databaseUtil.connectDatabase();
 	}
 	
+	public String getUemailLogin() {
+		return uemailLogin;
+	}
+
+	public void setUemailLogin(String uemailLogin) {
+		this.uemailLogin = uemailLogin;
+	}
+
+	public String getUphoneLogin() {
+		return uphoneLogin;
+	}
+
+	public void setUphoneLogin(String uphoneLogin) {
+		this.uphoneLogin = uphoneLogin;
+	}
+
+	public String getUpasswordLogin() {
+		return upasswordLogin;
+	}
+
+	public void setUpasswordLogin(String upasswordLogin) {
+		this.upasswordLogin = upasswordLogin;
+	}
+
 	public int getIdUserLogin() {
 		return idUserLogin;
 	}
@@ -69,6 +96,9 @@ public class UserService {
 			if (rs.next()) {
 				idUserLogin = rs.getInt("id");
 				unameLogin = rs.getString("uname");
+				uemailLogin = rs.getString("uemail");
+				uphoneLogin = rs.getString("umobile");
+				upasswordLogin = rs.getString("upw");
 				return true;
 			} else {
 				return false;

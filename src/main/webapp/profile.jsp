@@ -2,7 +2,6 @@
 <%@page import="com.blog.model.Blog"%>
 <%@page import="java.util.List"%>
 <%@page import="com.blog.service.BlogService"%>
-<%@page import="com.general.DatabaseUtil"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -26,6 +25,7 @@
 
             <div id="forum">
                   <div id="sidebar">
+                  	<div style="position: fixed; top: 50px;">
                         <div id="profile-image" style="background-image: url(./images/default-img-profile.jpeg)">
                         </div>
                         <% if (session.getAttribute("name") != null)  { %>
@@ -33,7 +33,7 @@
 	                    		<%= session.getAttribute("fullname") %>
 	                  		</div>
 	              		<% } %>
-                        <div id="profile-description">Always learning, always innovating!</div>
+                        <div id="profile-description">Always learning, always <br>innovating!</div>
                         <div id="social-icons">
                               <a href="https://github.com/" target="_blank" id="sidebar-icon"><img
                                           src="./images/icons/github.png"></a>
@@ -52,7 +52,12 @@
                               <span id="sidebar-icon"><img src="./images/icons/create-post.png"></span>
                               <span id="home-text" class="active-forum">Đăng bài</span>
                         </a>
-                        
+                        <a href="setting.jsp" id="sidebar-items" style="position: fixed; bottom: 60px;">
+                              <span id="sidebar-icon"><img src="./images/icons/setting.png"></span>
+                              <span id="home-text" class="sidebar-setting">Cài đặt</span>
+                        </a>
+
+                      </div>   
                   </div>
                   <div id="content" class="gap-profile-content">
                         <section class="create-blog-form">
@@ -73,6 +78,7 @@
                         </section>
 						
 					<% 
+					if (session.getAttribute("name") !=null ) {
 					    BlogService blogService = new BlogService();
 						
 					    int userId = (int) request.getSession().getAttribute("userId");
@@ -97,13 +103,14 @@
 					    <h2 class="collection-blog">Bạn chưa tạo bài viết nào</h2>
 					<%
 					    }
+					}
 					%>
 						
 
                   </div>
                   
                   <div id="right-sidebar">
-                       <a class="brand" href="#"><small>A</small>B
+                       <a class="brand" style="position: fixed; top: 50px;" href="#"><small>A</small>B
                               <small> B</small>log
                               <span>We are one</span>
                         </a>
