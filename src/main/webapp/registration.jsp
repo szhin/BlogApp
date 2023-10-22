@@ -82,18 +82,27 @@
 		</section>
 		
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-		<script type="text/javascript">
+		
+		<% String status = request.getParameter("status"); %>
+		
+		<% if (status != null && !status.isEmpty()) { %>
+			    <script type="text/javascript">
+			        var status = "<%= status %>";
+			        if (status === "warning email already") {
+			            swal("Sorry", "Email already exists", "warning");
+			        } else if (status === "error wrong repass") {
+			            swal("Oh no!", "The password when re-entered is incorrect", "error");
+			        }
+			    </script>
+		<% } %>
+		
+		<%-- Remove the "status" query parameter from the URL --%>
+			<script type="text/javascript">
+			    if (window.location.search.indexOf('status=') > -1) {
+			        window.history.replaceState({}, document.title, window.location.pathname);
+			    }
+			</script>
 
-			var status = document.getElementById("status").value;
-			if (status == "success") {
-				swal("Congrats", "Account Created Successfully", "success");
-			} else if (status == "Email already") {
-				swal("Sorry", "Email already exists", "warning")
-			} else if (status == "wrong repass") {
-				swal("Oh no!", "The password when re-entered is incorrect", "error");
-			}
-
-		</script>
 		<script>
 			document.addEventListener("DOMContentLoaded", function() {
 			    var emailInput = document.getElementById("name");

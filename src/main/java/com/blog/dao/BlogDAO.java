@@ -115,7 +115,9 @@ public class BlogDAO implements IDAO<Blog> {
 	public List<Blog> getAll() {
 		
 		Connection connection = databaseUtil.getConnection();
-        String query = "SELECT * FROM " + TABLE_NAME;
+        String query = "SELECT * FROM " + TABLE_NAME 
+        		+ " GROUP BY id"
+        		+ " ORDER BY id DESC";
         List<Blog> blogs = new ArrayList<>();
         
         try {

@@ -79,6 +79,28 @@ public class UserService {
 	    }
 	}
 	
+	// Phương thức kiểm tra email đã tồn tại chưa, ngoại trừ email đang login
+	public boolean checkEmailEditProfile(String email, int idLogin) {
+	    Connection connection = databaseUtil.getConnection();
+	    
+	    String sql = "SELECT * FROM " + TABLE_NAME + " WHERE uemail = ? AND id != ?";
+	    
+	    try {
+	    	PreparedStatement preStatement = connection.prepareStatement(sql);
+	    	
+	    	preStatement.setString(1, email);
+	    	preStatement.setInt(2, idLogin);
+	        ResultSet rs = preStatement.executeQuery();
+	        
+	        return rs.next(); 
+	        // Trả về true nếu tìm thấy email này và khác email đang login
+	        //ngược lại trả về false
+	    
+	    } catch (SQLException e) {
+	        throw new RuntimeException(e);
+	    }
+	}
+	
 	public boolean login(String email, String password) {
 		Connection connection = databaseUtil.getConnection();
 		
@@ -107,4 +129,6 @@ public class UserService {
 			throw new RuntimeException(e);
 		}
 	}
+
+	
 }

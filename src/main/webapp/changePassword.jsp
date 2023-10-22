@@ -6,7 +6,7 @@
       <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Settings</title>
+            <title>Change password</title>
             <link rel="stylesheet" href="alert/dist/sweetalert.css">
             <link rel="stylesheet" href="./css/forum-styles.css">
             <link rel="stylesheet" href="./css/setting.css">
@@ -54,22 +54,27 @@
                   </div>
                   <div id="content" class="gap-profile-content">
                         <div id="blog-content" >
-                        	<div class="setting">
-                        		<h1 style="margin-bottom: 20px;">Thông tin tài khoản</h1>
-						        <div class="setting-info">
-						        	<p>Họ và tên: <span><%= session.getAttribute("fullname") %></span>
-							        </p>
-							        <p>Email: <span><%= session.getAttribute("userEmail") %></span>
-							        </p>
-							        <p>Mật khẩu: <span>************</span></p>
-							        <p>Số điện thoại: <span><%= session.getAttribute("userPhone") %></span>
-							        </p>
-
-						        </div>    
-						        <a class="edit" href="editProfile.jsp">Sửa thông tin</a>
-							
-							 	<a class="delete" href="confirmDelete.jsp" style="color: red;">Xóa tài khoản</a> 
-                       		</div>
+                        	<section class="edit-profile">
+								<h1 style="margin-bottom: 2rem;">Thay đổi mật khẩu</h1>
+								<form method="POST" action="changePassword" id="changePassword-form">
+									<div class="form-group">
+										<p class="form-item">Nhập mật khẩu cũ</p>
+										<input type="password" name="password" id="password" placeholder="Password" required />
+									</div>
+									<div class="form-group">
+										<p class="form-item">Nhập mật khẩu mới</p>
+										<input type="password" name="new-password" id="password" placeholder="New password" required />
+									</div>			
+									<div class="form-group">
+										<p class="form-item">Xác nhận mật khẩu mới</p>
+										<input type="password" name="renew-password" id="password" placeholder="Re-new Password" required />
+									</div>			
+									<div class="form-group form-button">
+										<input type="submit" name="changePassword" id="changePassword" class="form-submit" value="Xác nhận chỉnh sửa" />
+									</div>				
+								</form>
+								<a href="editProfile.jsp" class="back-editProfile">Chỉnh sửa thông tin khác</a>
+							</section>
                         </div>
                   </div>
                   <div id="right-sidebar">
@@ -87,12 +92,10 @@
 			    <script type="text/javascript">
 			        var status = "<%= status %>";
 			        
-			        if (status == "warning delete cancel") {
-			        	swal("Oh yeah", "Thật tuyệt khi bạn không xoá tài khoản", "warning");
-			        } else if (status == "success edit info") {
-			        	swal("Success", "Chỉnh sửa thông tin thành công", "success");
-			        } else if (status == "success change password") {
-			        	swal("Success", "Thay đổi mật khẩu thành công", "success")
+			        if (status === "error wrong password") {
+			            swal("Sorry", "Nhập sai mật khẩu hiện tại", "error");
+			        } else if (status === "error wrong re-password") {
+			            swal("Oh no", "Mật khẩu mới không trùng khớp", "error");
 			        } 
 			    </script>
 			<% } %>

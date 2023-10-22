@@ -15,6 +15,13 @@ public class User {
         this.upw = upw;
         this.umobile = umobile;
     }
+    public User(String uname, String uemail, String upw, String umobile, int id) {
+        this.uname = uname;
+        this.uemail = uemail;
+        this.upw = upw;
+        this.umobile = umobile;
+        this.id = id;
+    }
 
     public int getId() {
         return id;

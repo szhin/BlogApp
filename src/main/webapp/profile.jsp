@@ -61,12 +61,11 @@
                   </div>
                   <div id="content" class="gap-profile-content">
                         <section class="create-blog-form">
-                              	<button id="show-create-post"><img class="create-icon" src="./images/icons/create-post.png">Tạo bài viết</button>
-                              
+                              	<button id="show-create-post"><img class="create-icon" src="./images/icons/create-post.png">Tạo bài viết</button>     
                               	<div id="overlay" onclick="closeCreatePost()"></div>
                              	 <div id="create-post">
                                    <div class="size-form">
-                                   	 <img onClick="closeCreatePost()" src="./images/icons/close.png">
+                                   	<img onClick="closeCreatePost()" src="./images/icons/close.png">
                                     <form method="POST" action="createBlogPost">
                                     	<h2>Create Post</h2>
                                     	<input type="text" name="title-blog" placeholder="Tiêu đề bài viết" required>
@@ -137,16 +136,29 @@
                   } */
             </script>
 			<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+			<%-- Check for the "status" query parameter --%>
+			<% String status = request.getParameter("status"); %>
+			
+			<% if (status != null && !status.isEmpty()) { %>
+			    <script type="text/javascript">
+			        var status = "<%= status %>";
+			        if (status === "success") {
+			            swal("Success", "Your post created success", "success");
+			        } else if (status === "error when create post") {
+			            swal("Oh no", "Wrong something when create post", "warning");
+			        } else if (status === "login success") {
+			            swal("Oh yeah!", "Bạn đã đăng nhập thành công", "success");
+			        }
+			    </script>
+			<% } %>
+			
+			<%-- Remove the "status" query parameter from the URL --%>
 			<script type="text/javascript">
-
-				var status = document.getElementById("status").value;
-				if (status == "success") {
-					swal("Success", "Your post created success", "success");
-				} else if (status == "error when create post") {
-					swal("Oh no", "Wrong something when create post", "warning");
-				}
-
+			    if (window.location.search.indexOf('status=') > -1) {
+			        window.history.replaceState({}, document.title, window.location.pathname);
+			    }
 			</script>
+			
       </body>
 
       </html>

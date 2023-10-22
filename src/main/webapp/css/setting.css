@@ -1,0 +1,124 @@
+#blog-content {
+	height: 100%;
+	display: flex;
+	justify-content: center;	
+	align-items: center;
+}
+
+.setting,
+.edit-profile {
+	position: relative;
+	margin-top: 15vh;
+	width: 70%;
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+	padding: 2rem;
+	border-radius: 2rem;
+}
+
+.setting h1,
+.edit-profile h1 {
+	align-self: center;
+}
+
+.setting-info {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	align-items: start;
+	padding: 0 5rem 7rem 5rem;
+}
+
+.setting-info p {
+	font-size: 18px;
+}
+
+.setting-info span {
+	font-size: 16px;
+	margin-left: 10px;
+}
+
+.edit {
+	position: absolute;
+	bottom: 2rem;
+	left: 3rem;
+	color: #00adc3;
+	font-style: italic;
+	transition: 0.3s ease;
+}
+
+.delete {
+	position: absolute;
+	bottom: 2rem;
+	right: 3rem;
+	font-style: italic;
+	transition: 0.3s ease;
+}
+
+.edit:hover {
+	color: rgb(90, 200, 226);
+}
+
+
+.delete:hover {
+	color: #f88181
+}
+
+
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2.4rem;
+}
+
+.form-group img {
+  margin-right: 8px;
+  height: 40px;
+  width: 40px;
+}
+
+.form-group input {
+  height: 4rem;
+  width: 50rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px #ced4da solid;
+  transition: 0.3s ease border;
+}
+
+.form-button .form-submit {
+  cursor: pointer;
+  border: none;
+  padding: 4px 10px;
+  margin-top: 1.5rem;
+  background-color: #66d9e8;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 10px;
+  width: 40rem;
+  transition: 0.5s linear;
+}
+
+.form-submit:hover {
+  background-color: #15aabf;
+}
+
+#editProfile-form, #changePassword-form {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.form-item {
+	font-size: 14px;
+}
+
+.confirm {
+	color: #15aabf;
+}
+
+.change-password, .back-editProfile {
+	color: red;
+}

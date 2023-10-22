@@ -1,6 +1,5 @@
 package com.blog.session;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -26,13 +25,10 @@ public class Login extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 
-		RequestDispatcher dispatcher = null;
 		
 		UserService userService = new UserService();
 			
 		if (userService.login(uemail, upw)) {
-			
-			dispatcher = request.getRequestDispatcher("profile.jsp");
 			
 			int userId = userService.getIdUserLogin();
 			session.setAttribute("userId", userId);
@@ -43,13 +39,15 @@ public class Login extends HttpServlet {
 			session.setAttribute("userEmail", userService.getUemailLogin());
 			session.setAttribute("userPhone", userService.getUphoneLogin());
 			session.setAttribute("userPassword", userService.getUpasswordLogin());
-			session.setAttribute("name", fullname.substring(fullname.lastIndexOf(" ") + 1));				
+			session.setAttribute("name", fullname.substring(fullname.lastIndexOf(" ") + 1));	
+			
+			request.setAttribute("status", "login success");
+			response.sendRedirect("profile.jsp?status=" + request.getAttribute("status"));
+			
 		} else {
-			request.setAttribute("status", "failed");
-			dispatcher = request.getRequestDispatcher("login.jsp");
+			request.setAttribute("status", "error wrong info");
+			response.sendRedirect("login.jsp?status=" + request.getAttribute("status"));
 		}
-
-		dispatcher.forward(request, response);
 
 	}
 

@@ -10,12 +10,11 @@ import java.util.List;
 import com.blog.connection.DatabaseUtil;
 import com.blog.model.User;
 
-import jakarta.servlet.http.HttpSession;
-
 public class UserDAO implements IDAO<User> {
 	
 	private DatabaseUtil databaseUtil;
 	private static final String TABLE_NAME = "users";
+	private static final String TABLE_NAME_BLOG = "blog_posts";
 	
 	public UserDAO() {
 		databaseUtil = new DatabaseUtil();
@@ -62,25 +61,44 @@ public class UserDAO implements IDAO<User> {
 
 	@Override
 	public boolean delete(int id) {
-		Connection connection = databaseUtil.getConnection();
-		String query = "DELETE FROM " + TABLE_NAME + " WHERE id = ?";
-             
-        try {
-            PreparedStatement preStatement = connection.prepareStatement(query);
-            preStatement.setInt(1, id);
-            int rowsAffected = preStatement.executeUpdate();
-            
-            if (rowsAffected > 0) {
-                // Xóa thành công
-                return true;
-            } else {
-                // Không có hàng nào bị xóa (xóa không thành công)
-                return false;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+		
+	    Connection connection = databaseUtil.getConnection();
+	    String deletePostsQuery = "DELETE FROM " + TABLE_NAME_BLOG + " WHERE user_id = ?";
+	    String deleteUserQuery = "DELETE FROM " + TABLE_NAME + " WHERE id = ?";
+	    boolean success = false;
+	    
+	    try {
+	        connection.setAutoCommit(false); // Bắt đầu transaction
+	        
+	        // Xóa bài đăng của người dùng
+	        PreparedStatement deletePostsStatement = connection.prepareStatement(deletePostsQuery);
+	        deletePostsStatement.setInt(1, id);
+	        deletePostsStatement.executeUpdate();
+	        
+	        // Xóa người dùng
+	        PreparedStatement deleteUserStatement = connection.prepareStatement(deleteUserQuery);
+	        deleteUserStatement.setInt(1, id);
+	        int rowsAffected = deleteUserStatement.executeUpdate();
+	        
+	        if (rowsAffected > 0) {
+	            success = true;
+	            connection.commit(); // Commit transaction nếu thành công
+	        } else {
+	            connection.rollback(); // Rollback nếu không có hàng nào bị xóa
+	        }
+	    } catch (SQLException e) {
+	        throw new RuntimeException(e);
+	    } finally {
+	        try {
+	            connection.setAutoCommit(true); // Kết thúc transaction
+	        } catch (SQLException e) {
+	            throw new RuntimeException(e);
+	        }
+	    }
+	    
+	    return success;
 	}
+
 	
 	@Override
 	public User get(int id) {
@@ -108,6 +126,7 @@ public class UserDAO implements IDAO<User> {
 
         return null;
 	}
+	
 	@Override
 	public List<User> getAll() {
 		Connection connection = databaseUtil.getConnection();
@@ -133,6 +152,5 @@ public class UserDAO implements IDAO<User> {
 
         return users;
 	}
-
 
 }

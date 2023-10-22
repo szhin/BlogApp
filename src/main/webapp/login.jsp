@@ -69,16 +69,30 @@
 		</section>
 
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		
+		<% String status = request.getParameter("status"); %>
+			
+		<% if (status != null && !status.isEmpty()) { %>
+			    <script type="text/javascript">
+			        var status = "<%= status %>";
+			        
+			        if (status == "error wrong info") {
+			        	swal("Sorry", "Sai mật khẩu hoặc email", "error");
+			        } else if (status === "registration success") {
+			        	swal("Congrats", "Đăng kí tài khoản thành công", "success");
+			        } else if (status == "success deleted user") {
+						swal("Success", "Xoá tài khoản thành công", "success");
+			        }
+			    </script>
+		<% } %>
+			
+		<%-- Remove the "status" query parameter from the URL --%>
 		<script type="text/javascript">
-
-			var status = document.getElementById("status").value;
-			if (status == "failed") {
-				swal("Sorry", "Wrong Username or Password", "error");
-			} else if (status == "deleted") {
-				swal("Success", "Account deleted successful", "success");
+			if ((window.location.search.indexOf('status=') > -1)) {
+			 	window.history.replaceState({}, document.title, window.location.pathname);
 			}
-
 		</script>
+
 		<script>
 			document.addEventListener("DOMContentLoaded", function() {
 			    var emailInput = document.getElementById("email");

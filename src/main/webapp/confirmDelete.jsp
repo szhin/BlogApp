@@ -51,8 +51,8 @@
                         </div>
 
                   </div>
-                  <div id="content" class="gap-profile-content">
-                        <div id="blog-content" style="font-size: 24px; display: flex; flex-direction: column; gap: 3rem;">
+                  <div id="content" class="content-confirm-delete">
+                        <div class="deleteUser">
 						    <p>Bạn có chắc chắn muốn xóa tài khoản không?</p>
 						    <form action="deleteUser" method="post">
 						        <input type="submit" name="delete" value="Có">
@@ -68,19 +68,6 @@
                   </div>
             </div>
 
-
-
-            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-            <script type="text/javascript">
-
-                  var status = document.getElementById("status").value;
-                  if (status == "deleted") {
-                        swal("Success", "Your account has been deleted", "success");
-                  } else if (status == "failed delete") {
-                	  swal("Failed", "Cannot delete", "error");
-                  }
-
-            </script>
       </body>
 
       </html>

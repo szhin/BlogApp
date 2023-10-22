@@ -50,7 +50,10 @@ public class BlogService {
 	public boolean isHaveBlog(int id) {
 		
 		Connection connection = databaseUtil.getConnection();
-		String sql = "SELECT * FROM " + TABLE_NAME + " WHERE user_id = ?";
+		String sql = "SELECT * FROM " + TABLE_NAME 
+				+ " WHERE user_id = ?"
+				+ " GROUP BY id"
+				+ " ORDER BY id DESC";
 		
 		try {
 			

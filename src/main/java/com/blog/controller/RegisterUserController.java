@@ -1,6 +1,5 @@
 package com.blog.controller;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -33,13 +32,10 @@ public class RegisterUserController extends HttpServlet {
 		String reupw = request.getParameter("re_pass");
 		String umobile = request.getParameter("contact");
 		
-		RequestDispatcher dispatcher = null;
-		
 		// Check wrong re password
 		if (!upw.equals(reupw)) {
-			request.setAttribute("status", "wrong repass");
-			dispatcher = request.getRequestDispatcher("registration.jsp");
-			dispatcher.forward(request, response);
+			request.setAttribute("status", "error wrong repass");
+			response.sendRedirect("registration.jsp?status=" + request.getAttribute("status"));
 			return;
 		}
 		
@@ -50,12 +46,13 @@ public class RegisterUserController extends HttpServlet {
 			UserService userService = new UserService();
 			// Check email already exists
 			if (!userService.userAlreadyExists(uemail)) {
-				userDAO.insert(user);
-				
-				request.setAttribute("status", "success");
+				userDAO.insert(user);			
+				request.setAttribute("status", "registration success");
+				response.sendRedirect("login.jsp?status=" + request.getAttribute("status"));
 	            System.out.println("A user has been inserted");
 			} else {
-				request.setAttribute("status", "Email already");
+				request.setAttribute("status", "warning email already");
+				response.sendRedirect("registration.jsp?status=" + request.getAttribute("status"));
 			}
 			
 		} catch (RuntimeException e) {
@@ -63,8 +60,6 @@ public class RegisterUserController extends HttpServlet {
 			e.printStackTrace();
 		} 
 		
-		dispatcher = request.getRequestDispatcher("registration.jsp");
-		dispatcher.forward(request, response);
 	}
 
 }

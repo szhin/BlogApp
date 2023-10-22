@@ -1,6 +1,5 @@
 package com.blog.controller;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -22,8 +21,6 @@ public class DeleteUserController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-
-		RequestDispatcher dispatcher = null;
 		
 		UserDAO userDAO = new UserDAO();
 		
@@ -32,21 +29,15 @@ public class DeleteUserController extends HttpServlet {
 		String deleteButton = request.getParameter("delete");
 	    String cancelButton = request.getParameter("cancel");
 	    
-	    if (deleteButton != null) {
-	        if (userDAO.delete(userId)) {
-	            request.setAttribute("status", "deleted");
-	            session.invalidate();
-	            dispatcher = request.getRequestDispatcher("login.jsp");
-	        } else {
-	            request.setAttribute("status", "failed delete");
-	            dispatcher = request.getRequestDispatcher("setting.jsp");
-	        }
+	    if (deleteButton != null && userDAO.delete(userId)) {          	
+	    	request.setAttribute("status", "success deleted user");
+		    session.invalidate();
+		    response.sendRedirect("login.jsp?status=" + request.getAttribute("status"));
+
 	    } else if (cancelButton != null) {
-	    	request.setAttribute("status", "delete cancel");
-	        dispatcher = request.getRequestDispatcher("setting.jsp");
+	    	request.setAttribute("status", "warning delete cancel");
+	    	response.sendRedirect("setting.jsp?status=" + request.getAttribute("status"));
 	    }
-	    System.out.println(request.getAttribute("status"));
-		dispatcher.forward(request, response);
 	}
 
 }
