@@ -64,4 +64,14 @@
     <servlet-name>Forum</servlet-name>
     <url-pattern>/Forum</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EditBlogController</display-name>
+    <servlet-name>EditBlogController</servlet-name>
+    <servlet-class>com.blog.controller.EditBlogController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditBlogController</servlet-name>
+    <url-pattern>/EditBlogController</url-pattern>
+  </servlet-mapping>
 </web-app>

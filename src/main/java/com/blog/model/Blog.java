@@ -9,14 +9,15 @@ public class Blog {
     private Timestamp creationDate;
     private String content;
 
-    public Blog() {}
+    public Blog() {
+    }
 
     public Blog(int userId, String title, String content) {
         this.userId = userId;
         this.title = title;
         this.content = content;
     }
-
+    
     public int getId() {
         return id;
     }

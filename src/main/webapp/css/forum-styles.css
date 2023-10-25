@@ -153,6 +153,7 @@ html {
 }
 
 .your-blog-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
@@ -209,7 +210,7 @@ html {
 	z-index: 3;
 }
 
-#overlay {
+#overlay{
   display: none;
   position: fixed;
   top: 0;
@@ -234,6 +235,18 @@ html {
   align-items: center;
 }
 
+#edit-post {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 3rem 5rem;
+  z-index: 4;
+  border-radius: 2rem;
+  justify-content: center;
+  align-items: center;
+}
 .size-form {
   display: flex;
   flex-direction: column;
@@ -241,7 +254,7 @@ html {
   justify-content: center;
 }
 
-#create-post img {
+#create-post img, #edit-post img {
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -250,7 +263,7 @@ html {
   cursor: pointer;
 }
 
-#create-post h2 {
+#create-post h2, #edit-post h2  {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -258,7 +271,9 @@ html {
 }
 
 #create-post input,
-#create-post textarea {
+#create-post textarea,
+#edit-post input,
+#edit-post textarea {
   font-family: "Roboto", sans-serif;
   width: 100%;
   padding: 15px;
@@ -267,21 +282,25 @@ html {
   font-size: 16px;
 }
 
-#create-post input {
+#create-post input, #edit-post input {
   margin: 2rem 0 3rem;
 }
 
 #create-post input:focus-visible,
-#create-post textarea:focus-visible {
+#create-post textarea:focus-visible,
+#edit-post input:focus-visible,
+#edit-post textarea:focus-visible {
   outline: 2px solid rgb(84, 102, 104);
 }
 
-#create-post textarea {
+#create-post textarea,
+#edit-post textarea {
   height: 20rem;
   margin-bottom: 15px;
 }
 
-#create-post button {
+#create-post button,
+#edit-post button {
   cursor: pointer;
   border: none;
   padding: 1rem 10px;
@@ -296,7 +315,8 @@ html {
   justify-content: center;
 }
 
-#create-post button:hover {
+#create-post button:hover,
+#edit-post button:hover {
   background-color: #15aabf;
 }
 
@@ -312,6 +332,8 @@ html {
   font-size: 1.6rem;
   transition: 0.5s ease;
 }
+
+
 
 #show-create-post .create-icon {
   width: 2rem;
@@ -415,5 +437,18 @@ html {
 
 .deleteUser input:hover {
 	background-color: #15aabf;
+}
+
+.icon-dispatcher {
+	position: absolute;
+	display: flex;
+	gap: 1.5rem;
+	top: 1rem;
+	right: 1rem;
+}
+
+.delete-icon img, .edit-icon img {
+	cursor: pointer;
+	height: 2rem;
 }
 

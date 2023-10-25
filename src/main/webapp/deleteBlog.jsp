@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<% if (session.getAttribute("name")==null) { response.sendRedirect("forum.jsp"); } %>
       <!DOCTYPE html>
       <html lang="en">
 
       <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Blog</title>
+            <title>Xoá blog</title>
             <link rel="stylesheet" href="alert/dist/sweetalert.css">
             <link rel="stylesheet" href="./css/forum-styles.css">
       </head>
@@ -40,37 +41,24 @@
 	             
 	                        <a href="profile.jsp" id="sidebar-items">
 	                              <span id="sidebar-icon"><img src="./images/icons/create-post.png"></span>
-	                              <span id="home-text" class="active-forum">Đăng bài</span>
+	                              <span id="home-text">Đăng bài</span>
 	                        </a>
-	                        <% if (session.getAttribute("name") != null) { %>
-	                        <a href="setting.jsp" id="sidebar-items" style="position: fixed; bottom: 60px;">
+	                        
+	                        <a href="#" id="sidebar-items" style="position: fixed; bottom: 60px;">
 	                              <span id="sidebar-icon"><img src="./images/icons/setting.png"></span>
 	                              <span id="home-text" class="sidebar-setting">Cài đặt</span>
 	                        </a>
-	                        <% } %>
                         </div>
 
                   </div>
-                  <div id="content" class="gap-profile-content">
-                        <div id="blog-content">
-                            		<div class="blog-container">
-                                        <a class="blog-title" style="font-size: 4.5rem; line-height: 6rem; margin-bottom: 1.5rem;"><%= request.getAttribute("blogTitle") %></a>
-                                       	<div class="blog-creator">
-                                       		<span id="sidebar-icon"><img src="./images/icons/author.png"></span>
-	                                    	<span><%= request.getAttribute("blogCreator") %></span>   
-                                       	</div>
-                                        <div class="blog-details" style="margin-bottom: 2rem;">
-	                                        <span id="sidebar-icon"><img src="./images/icons/schedule.png"></span>
-	                                        <span><%= request.getAttribute("blogTime") %></span>
-	                                        <span id="sidebar-icon"><img src="./images/icons/clock.png"></span>
-	                                        <span>6 phút đọc</span>
-	                                       
-                                    	</div>                                  	
-                                    	<div class="blog-content">         		   
-                                            <p class="content"><%= request.getAttribute("blogContent") %></p>           
-                                   		</div>              
-                                    </div>      
-                        </div>
+                  <div id="content" class="content-confirm-delete">
+                        <div class="deleteUser">
+						    <p>Bạn có chắc chắn muốn xóa blog này không?</p>
+						    <form action="deleteBlog" method="POST">
+						        <input type="submit" name="delete" value="Có">
+						        <input type="submit" name="cancel" value="Không">
+						    </form>   
+	                    </div>
                   </div>
                   <div id="right-sidebar">
                        <a class="brand" style="position: fixed; top: 50px;" href="#"><small>A</small>B
@@ -79,6 +67,7 @@
                         </a>
                   </div>
             </div>
+
       </body>
 
       </html>

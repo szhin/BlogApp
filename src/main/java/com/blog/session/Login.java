@@ -22,6 +22,7 @@ public class Login extends HttpServlet {
 
 		String uemail = request.getParameter("email");
 		String upw = request.getParameter("password");
+		System.out.println(uemail);
 		
 		HttpSession session = request.getSession();
 
@@ -29,7 +30,7 @@ public class Login extends HttpServlet {
 		UserService userService = new UserService();
 			
 		if (userService.login(uemail, upw)) {
-			
+			System.out.println("hello");
 			int userId = userService.getIdUserLogin();
 			session.setAttribute("userId", userId);
 			
@@ -45,6 +46,7 @@ public class Login extends HttpServlet {
 			response.sendRedirect("profile.jsp?status=" + request.getAttribute("status"));
 			
 		} else {
+			System.out.println("bye");
 			request.setAttribute("status", "error wrong info");
 			response.sendRedirect("login.jsp?status=" + request.getAttribute("status"));
 		}

@@ -32,14 +32,10 @@ public class ChangePasswordController extends HttpServlet {
         String password = request.getParameter("password");    
         String newPassword = request.getParameter("new-password");  
         String reNewPassword = request.getParameter("renew-password");  
-        System.out.println(newPassword);
-        System.out.println(reNewPassword);
 
         // Kiểm tra mật khẩu
 		if (userLogin.getUpw().equals(password)) {
 			if (newPassword.equals(reNewPassword)) {
-				System.out.println(newPassword);
-		        System.out.println(reNewPassword);
 				 User updatedUser = new User(fullname, userEmail, newPassword, userPhone, userId);
 		         userDAO.update(updatedUser);
 		         

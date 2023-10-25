@@ -47,11 +47,12 @@ public class BlogDAO implements IDAO<Blog> {
             preStatement.setString(1, blog.getTitle());
             preStatement.setString(2, blog.getContent());
             preStatement.setInt(3, blog.getId());
+
             preStatement.executeUpdate(); 
             
         } catch (SQLException e) {
-            throw new RuntimeException(e);
-            
+        	e.printStackTrace();
+            throw new RuntimeException(e); 
         }
 		
 	}
@@ -60,24 +61,34 @@ public class BlogDAO implements IDAO<Blog> {
 	public boolean delete(int id) {
 		Connection connection = databaseUtil.getConnection();
         String query = "DELETE FROM " + TABLE_NAME + " WHERE id = ?";
+        boolean success = false;
         
         try {
+        	connection.setAutoCommit(false); // Bắt đầu transaction
+        	
             PreparedStatement preStatement = connection.prepareStatement(query);
             preStatement.setInt(1, id);
             int rowsAffected = preStatement.executeUpdate();
             
             if (rowsAffected > 0) {
-                // Xóa thành công
-                return true;
-            } else {
-                // Không có hàng nào bị xóa (xóa không thành công)
-                return false;
-            }
+	            success = true;
+	            connection.commit(); // Commit transaction nếu thành công
+	        } else {
+	            connection.rollback(); // Rollback nếu không có hàng nào bị xóa
+	        }
             
         } catch (SQLException e) {
             throw new RuntimeException(e);
             
-        }	
+        }	finally {
+	        try {
+	            connection.setAutoCommit(true); // Kết thúc transaction
+	        } catch (SQLException e) {
+	            throw new RuntimeException(e);
+	        }
+	    }
+	    
+	    return success;
 	}
 
 	// Lấy blog theo id
