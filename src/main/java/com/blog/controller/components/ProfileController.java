@@ -35,7 +35,7 @@ public class ProfileController extends HttpServlet {
 		
 		session.setAttribute("status", status);
 		System.out.println("status profile: " + session.getAttribute("status"));
-		request.setAttribute("fullName", fullName);
+		session.setAttribute("fullName", fullName);
 		request.setAttribute("isHaveBlog", isHaveBlog);
 		request.setAttribute("blogList", blogList);
 		

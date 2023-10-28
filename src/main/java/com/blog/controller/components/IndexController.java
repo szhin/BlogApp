@@ -26,8 +26,8 @@ public class IndexController extends HttpServlet {
         String registerLink=(name==null) ? "registration.jsp" : "logout"; 
         String registerText=(name==null) ? "Đăng ký" : "Đăng xuất" ;
         String loginName=(name==null) ? "" : name ;
-        String imagePath = request.getContextPath() + "/images/index-1.jpeg";
-        String imageHeroPath = request.getContextPath() + "/images/background-index.jpeg";
+        String imagePath = request.getContextPath() + "/resources/images/index-1.jpeg";
+        String imageHeroPath = request.getContextPath() + "/resources/images/background-index.jpeg";
 
         request.setAttribute("loginLink", loginLink);
         request.setAttribute("loginText", loginText);

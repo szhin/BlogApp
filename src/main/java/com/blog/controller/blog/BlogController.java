@@ -21,8 +21,8 @@ public class BlogController extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String fullname = (String) request.getSession().getAttribute("fullname");
-	    request.setAttribute("fullname", fullname);
+		String fullname = (String) session.getAttribute("fullname");
+		session.setAttribute("fullname", fullname);
 		
 		int blogId = Integer.parseInt(request.getParameter("id")); // Lấy ID của blog từ tham số truyền lên
 	
