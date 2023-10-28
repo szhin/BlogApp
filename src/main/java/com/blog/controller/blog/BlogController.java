@@ -1,4 +1,4 @@
-package com.blog.controller;
+package com.blog.controller.blog;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -6,6 +6,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 
 import com.blog.service.BlogAndUserService;
@@ -18,6 +20,7 @@ public class BlogController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		String fullname = (String) request.getSession().getAttribute("fullname");
 	    request.setAttribute("fullname", fullname);
 		
@@ -29,8 +32,8 @@ public class BlogController extends HttpServlet {
 			
 		if (blogAndUserService.getBlogUserId(blogId)) {
 				
-			request.setAttribute("status", "success select your blog");
-			
+			session.setAttribute("status", null);
+			System.out.println("status blog: " + session.getAttribute("status"));
 			request.setAttribute("blogTitle", blogAndUserService.getBlogTitle());
 			request.setAttribute("blogContent", blogAndUserService.getBlogContent());
 			request.setAttribute("blogTime", blogAndUserService.getBlogTime());
@@ -38,8 +41,9 @@ public class BlogController extends HttpServlet {
 				
 			dispatcher = request.getRequestDispatcher("blog.jsp");
 		} else {
-			request.setAttribute("status", "error when show blog");
-			dispatcher = request.getRequestDispatcher("profile.jsp");
+			session.setAttribute("status", "error when show blog");
+			System.out.println("status blog: " + session.getAttribute("status"));
+			dispatcher = request.getRequestDispatcher(request.getContextPath() + "/profile");
 			System.out.println("Cannot find this blog");
 		}
 			

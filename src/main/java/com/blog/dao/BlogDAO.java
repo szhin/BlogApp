@@ -130,6 +130,7 @@ public class BlogDAO implements IDAO<Blog> {
         		+ " GROUP BY id"
         		+ " ORDER BY id DESC";
         List<Blog> blogs = new ArrayList<>();
+        System.out.println("blogdao: " + blogs.size());
         
         try {
             PreparedStatement preStatement = connection.prepareStatement(query);

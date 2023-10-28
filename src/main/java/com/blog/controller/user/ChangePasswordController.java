@@ -1,4 +1,4 @@
-package com.blog.controller;
+package com.blog.controller.user;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -22,7 +22,8 @@ public class ChangePasswordController extends HttpServlet {
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int userId = (int) request.getSession().getAttribute("userId");
+        HttpSession session = request.getSession();
+    	int userId = (int) request.getSession().getAttribute("userId");
         User userLogin = userDAO.get(userId);
         
         String fullname = userLogin.getUname();
@@ -39,22 +40,24 @@ public class ChangePasswordController extends HttpServlet {
 				 User updatedUser = new User(fullname, userEmail, newPassword, userPhone, userId);
 		         userDAO.update(updatedUser);
 		         
-		         HttpSession session = request.getSession();
 		         session.setAttribute("fullname", fullname);
 				 session.setAttribute("userEmail", userEmail);
 				 session.setAttribute("userPhone", userPhone);
 				 session.setAttribute("userPassword", newPassword);
 				 session.setAttribute("name", fullname.substring(fullname.lastIndexOf(" ") + 1));	
 				
-		         request.setAttribute("status", "success change password");
-		         response.sendRedirect("setting.jsp?status=" + request.getAttribute("status"));
+				 session.setAttribute("status", "success change password");
+		         System.out.println("status changePassword: " + session.getAttribute("status"));
+		         response.sendRedirect(request.getContextPath() + "/setting.jsp");
 			} else {
-				 request.setAttribute("status", "error wrong re-password");
-		         response.sendRedirect("changePassword.jsp?status=" + request.getAttribute("status"));
+				 session.setAttribute("status", "error wrong re-password");
+				 System.out.println("status changePassword: " + session.getAttribute("status"));
+		         response.sendRedirect(request.getContextPath() + "/changePassword.jsp");
 			}
 		} else {
-		    request.setAttribute("status", "error wrong password");
-		    response.sendRedirect("changePassword.jsp?status=" + request.getAttribute("status"));
+			session.setAttribute("status", "error wrong password");
+		    System.out.println("status changePassword: " + session.getAttribute("status"));
+		    response.sendRedirect(request.getContextPath() + "/changePassword.jsp");
 		} 
     }
 }

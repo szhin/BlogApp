@@ -1,4 +1,4 @@
-package com.blog.controller;
+package com.blog.controller.blog;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -28,14 +28,17 @@ public class DeleteBlogController extends HttpServlet {
 		
 		String deleteButton = request.getParameter("delete");
 	    String cancelButton = request.getParameter("cancel");
+	    session.setAttribute("status", null);
 	    
 	    if (deleteButton != null && blogDAO.delete(blogId)) {          	
-	    	request.setAttribute("status", "success deleted blog");
-		    response.sendRedirect("profile.jsp?status=" + request.getAttribute("status"));
+	    	session.setAttribute("status", "success deleted blog");
+	    	System.out.println("status deleteBlog: " + session.getAttribute("status"));
+		    response.sendRedirect(request.getContextPath() + "/profile");
 
 	    } else if (cancelButton != null) {
-	    	request.setAttribute("status", "warning delete cancel");
-	    	response.sendRedirect("editBlog.jsp?status=" + request.getAttribute("status"));
+	    	session.setAttribute("status", "warning delete cancel");
+	    	System.out.println("status deleteBlog: " + session.getAttribute("status"));
+	    	response.sendRedirect(request.getContextPath() + "/profile");
 	    }
 	}
 

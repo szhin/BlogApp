@@ -1,4 +1,4 @@
-package com.blog.controller;
+package com.blog.controller.blog;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -45,8 +45,8 @@ public class EditBlogController extends HttpServlet {
         String newContent = request.getParameter("content");
         newContent = newContent.replaceAll("\n", "<br>");
         
-         newBlog.setTitle(newTitle);
-         newBlog.setContent(newContent);
+        newBlog.setTitle(newTitle);
+        newBlog.setContent(newContent);
         
         try { 	
             blogDAO.update(newBlog);	
@@ -54,14 +54,15 @@ public class EditBlogController extends HttpServlet {
             session.setAttribute("blogTitle", newTitle);
             session.setAttribute("blogContent", newContent);
             
-            System.out.println("Edit successful");
-            request.setAttribute("status", "Success edit blog");
-            response.sendRedirect("profile.jsp?status=" + request.getAttribute("status"));
+            session.setAttribute("status", "success edit blog");
+            System.out.println("status editBlog: " + session.getAttribute("status"));
+            response.sendRedirect(request.getContextPath() + "/profile");
             
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("status", "Error edit blog");
-	        response.sendRedirect("editBlog.jsp?status=" + request.getAttribute("status"));
+			session.setAttribute("status", null);
+			System.out.println("status editBlog: " + session.getAttribute("status"));
+			request.getRequestDispatcher("editBlog.jsp").forward(request, response);
 		}
         
     }

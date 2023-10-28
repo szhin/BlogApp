@@ -1,10 +1,12 @@
-package com.blog.controller;
+package com.blog.controller.user;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 
 import com.blog.dao.UserDAO;
@@ -25,7 +27,8 @@ public class RegisterUserController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				
+		HttpSession session = request.getSession();	
+		
 		String uname = request.getParameter("name");
 		String upw = request.getParameter("pass");
 		String uemail = request.getParameter("email");
@@ -34,8 +37,9 @@ public class RegisterUserController extends HttpServlet {
 		
 		// Check wrong re password
 		if (!upw.equals(reupw)) {
-			request.setAttribute("status", "error wrong repass");
-			response.sendRedirect("registration.jsp?status=" + request.getAttribute("status"));
+			session.setAttribute("status", "error wrong repass");
+			System.out.println("status register: " + session.getAttribute("status"));
+			response.sendRedirect("registration.jsp?status=" + session.getAttribute("status"));
 			return;
 		}
 		
@@ -47,12 +51,14 @@ public class RegisterUserController extends HttpServlet {
 			// Check email already exists
 			if (!userService.userAlreadyExists(uemail)) {
 				userDAO.insert(user);			
-				request.setAttribute("status", "registration success");
-				response.sendRedirect("login.jsp?status=" + request.getAttribute("status"));
+				session.setAttribute("status", "registration success");
+				System.out.println("status register: " + session.getAttribute("status"));
+				response.sendRedirect("login.jsp?status=" + session.getAttribute("status"));
 	            System.out.println("A user has been inserted");
 			} else {
-				request.setAttribute("status", "warning email already");
-				response.sendRedirect("registration.jsp?status=" + request.getAttribute("status"));
+				session.setAttribute("status", "warning email already");
+				System.out.println("status register: " + session.getAttribute("status"));
+				response.sendRedirect("registration.jsp?status=" + session.getAttribute("status"));
 			}
 			
 		} catch (RuntimeException e) {

@@ -8,7 +8,7 @@ public class Blog {
     private String title;
     private Timestamp creationDate;
     private String content;
-
+    
     public Blog() {
     }
 
@@ -57,5 +57,6 @@ public class Blog {
     public void setContent(String content) {
         this.content = content;
     }
-
+   
+   
 }

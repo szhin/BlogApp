@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<% if (session.getAttribute("name")!=null) { response.sendRedirect("forum.jsp"); } %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<% if (session.getAttribute("name")!=null) { response.sendRedirect("forum"); } %>
 
 	<!DOCTYPE html>
 	<html lang="en">
@@ -28,10 +29,10 @@
 				<nav>
 					<ul class="nav-items">
 						<li class="nav-item">
-							<a class="nav-link" href="index.jsp">Trang chủ</a>
+							<a class="nav-link" href="index">Trang chủ</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="forum.jsp">Diễn đàn</a>
+							<a class="nav-link" href="forum">Diễn đàn</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="login.jsp">Đăng nhập</a>
@@ -83,25 +84,30 @@
 		
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		
-		<% String status = request.getParameter("status"); %>
-		
-		<% if (status != null && !status.isEmpty()) { %>
+		<c:if test="${not empty status}">
+			    <c:set var="status" value="${status}" />
+			    <c:choose>
+			        <c:when test="${status eq 'warning email already'}">
+			        	<c:set var="title" value="Lỗi email" />
+			            <c:set var="message" value="Email đã tồn tại" />
+			            <c:set var="alertType" value="warning" />
+			        </c:when>
+			        <c:when test="${status eq 'error wrong repass'}">
+			        	<c:set var="title" value="Oh no!" />
+			            <c:set var="message" value="Nhập mật khẩu không trùng khớp" />
+			            <c:set var="alertType" value="error" />
+			        </c:when>
+	
+			    </c:choose>
+
 			    <script type="text/javascript">
-			        var status = "<%= status %>";
-			        if (status === "warning email already") {
-			            swal("Sorry", "Email already exists", "warning");
-			        } else if (status === "error wrong repass") {
-			            swal("Oh no!", "The password when re-entered is incorrect", "error");
-			        }
+				    var status = "${status}";
+				    if (status) {
+				        swal("${title}", "${message}", "${alertType}");
+				        <c:remove var="status" scope="session" />
+				    }
 			    </script>
-		<% } %>
-		
-		<%-- Remove the "status" query parameter from the URL --%>
-			<script type="text/javascript">
-			    if (window.location.search.indexOf('status=') > -1) {
-			        window.history.replaceState({}, document.title, window.location.pathname);
-			    }
-			</script>
+			</c:if>
 
 		<script>
 			document.addEventListener("DOMContentLoaded", function() {

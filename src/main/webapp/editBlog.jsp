@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<% if (session.getAttribute("name")==null) { response.sendRedirect("forum.jsp"); } %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<% if (session.getAttribute("name")==null) { response.sendRedirect(request.getContextPath() + "/forum"); } %>
+     
       <!DOCTYPE html>
       <html lang="en">
 
@@ -12,7 +14,7 @@
       </head>
 
       <body>
-            <input type="hidden" id="status" value="<%= request.getAttribute("status") %>">
+            <input type="hidden" id="status" value="${status }">
 
             <div id="forum">
                   <div id="sidebar">
@@ -31,15 +33,15 @@
                               <a href="https://facebook.com/" target="_blank" id="sidebar-icon"><img
                                           src="./images/icons/fb.png"></a>
                         </div>
-                        <a href="index.jsp" id="sidebar-items">
+                        <a href="index" id="sidebar-items">
                               <span id="sidebar-icon"><img src="./images/icons/home.png"></span>
                               <span id="home-text">Trang chủ</span>
                         </a>
-                        <a href="forum.jsp" id="sidebar-items">
+                        <a href="forum" id="sidebar-items">
                               <span id="sidebar-icon"><img src="./images/icons/forum.png"></span>
                               <span id="home-text">Diễn đàn</span>
                         </a>
-                        <a href="profile.jsp" id="sidebar-items">
+                        <a href="profile" id="sidebar-items">
                               <span id="sidebar-icon"><img src="./images/icons/create-post.png"></span>
                               <span id="home-text" class="active-forum">Đăng bài</span>
                         </a>
@@ -72,33 +74,32 @@
                   </div>
                   
                   <div id="right-sidebar">
-                       <a class="brand" style="position: fixed; top: 50px;" href="#"><small>A</small>B
+                       <a href="index" class="brand" style="position: fixed; top: 50px;" href="#"><small>A</small>B
                               <small> B</small>log
                               <span>We are one</span>
                         </a>
                   </div>
             </div>
 			<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-			<%-- Check for the "status" query parameter --%>
-			<% String status = request.getParameter("status"); %>
-			
-			<% if (status != null && !status.isEmpty()) { %>
+			<c:if test="${not empty status}">
+			    <c:set var="status" value="${status}" />
+			    <c:choose>
+			        <c:when test="${status eq 'error when create post'}">
+			        	<c:set var="title" value="Cảnh báo" />
+			            <c:set var="message" value="Error edit blog" />
+			            <c:set var="alertType" value="error" />
+			        </c:when>
+	
+			    </c:choose>
+
 			    <script type="text/javascript">
-			        var status = "<%= status %>";
-			        if (status === "Error edit blog") {
-			            swal("Error", "Không chỉnh sửa được blog", "error");
-			        } else if (status == "warning delete cancel") {
-			        	 swal("Warning", "Bạn đã quyết định không xoá blog", "warning");
-			        }
+				    var status = "${status}";
+				    if (status) {
+				        swal("${title}", "${message}", "${alertType}");
+				        <c:remove var="status" scope="session" />
+				    }
 			    </script>
-			<% } %>
-			
-			<%-- Remove the "status" query parameter from the URL --%>
-			<script type="text/javascript">
-			    if (window.location.search.indexOf('status=') > -1) {
-			        window.history.replaceState({}, document.title, window.location.pathname);
-			    }
-			</script>
+			</c:if>			
 			
       </body>
 

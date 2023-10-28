@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
       <!DOCTYPE html>
       <html lang="en">
@@ -10,8 +11,8 @@
             <title>AnhBang Blog</title>
             <link rel="stylesheet" href="./css/general.css">
             <link rel="stylesheet" href="./css/main-styles.css">
-
       </head>
+
 
       <body>
             <header class="header">
@@ -22,27 +23,24 @@
                                     <span>We are one</span>
                               </a>
                         </div>
-                        <% String name=(String) session.getAttribute("name"); String loginLink=(name==null)
-                              ? "login.jsp" : "profile.jsp" ; String loginText=(name==null) ? "Đăng nhập" : "Hồ sơ" ;
-                              String registerLink=(name==null) ? "registration.jsp" : "logout" ; String
-                              registerText=(name==null) ? "Đăng ký" : "Đăng xuất" ; %>
+                      
                               <nav>
                                     <ul class="nav-items">
                                           <li class="nav-item">
                                                 <a class="nav-link" href="#">Trang chủ</a>
                                           </li>
                                           <li class="nav-item">
-                                                <a class="nav-link" href="forum.jsp">Diễn đàn</a>
+                                                <a class="nav-link" href="forum">Diễn đàn</a>
                                           </li>
 
                                           <li class="nav-item">
-                                                <a class="nav-link" href="<%= loginLink %>">
-                                                      <%= loginText %>
+                                                <a class="nav-link" href="${loginLink }">
+                                                      ${loginText }
                                                 </a>
                                           </li>
                                           <li class="nav-item">
-                                                <a class="nav-link" href="<%= registerLink %>">
-                                                      <%= registerText %>
+                                                <a class="nav-link" href="${registerLink }">
+                                                      ${registerText }
                                                 </a>
                                           </li>
                                     </ul>
@@ -53,7 +51,7 @@
             <section class="index-hero section-hero" style="background-image: url(./images/background-index.jpeg);">
                   <div class="container hero">
                         <h1 class="heading-primary">
-                              Xin chào <%= session.getAttribute("name")==null ? "" : session.getAttribute("name") %>
+                              Xin chào ${loginName }
                         </h1>
                   </div>
                   <div class="overlay"></div>
@@ -62,7 +60,7 @@
             <section class="section-1">
                   <div class="container welcome">
                         <div class="welcome-left">
-                              <img class="welcome-img" src="./images/index-1.jpeg" alt="Image Index">
+                              <img class="welcome-img" src="${imagePath }" alt="Image Index">
                         </div>
                         <div class="welcome-right">
                               <span class="subheading">Lời mở đầu</span>
@@ -83,8 +81,16 @@
                         </div>
                   </div>
             </section>
-
-
+			<c:if test="${not empty status }">
+           		<c:set var="status" value="${status }" />
+	            <script type="text/javascript">
+					    var status = "${status}";
+					    if (status) {
+					        swal("${title}", "${message}", "${alertType}");
+					        <c:remove var="status" scope="session" />
+					    }
+				 </script>
+			 </c:if>
       </body>
 
       </html>

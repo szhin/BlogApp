@@ -1,4 +1,4 @@
-package com.blog.controller;
+package com.blog.controller.user;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -30,13 +30,15 @@ public class DeleteUserController extends HttpServlet {
 	    String cancelButton = request.getParameter("cancel");
 	    
 	    if (deleteButton != null && userDAO.delete(userId)) {          	
-	    	request.setAttribute("status", "success deleted user");
+	    	session.setAttribute("status", "success deleted user");
+	    	System.out.println("status deleteUser: " + session.getAttribute("status"));
 		    session.invalidate();
-		    response.sendRedirect("login.jsp?status=" + request.getAttribute("status"));
+		    response.sendRedirect(request.getContextPath() + "/login.jsp");
 
 	    } else if (cancelButton != null) {
-	    	request.setAttribute("status", "warning delete cancel");
-	    	response.sendRedirect("setting.jsp?status=" + request.getAttribute("status"));
+	    	session.setAttribute("status", "warning delete cancel");
+	    	System.out.println("status deleteUser: " + session.getAttribute("status"));
+	    	response.sendRedirect(request.getContextPath() + "/setting.jsp");
 	    }
 	}
 

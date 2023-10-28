@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<% if (session.getAttribute("name")!=null) { response.sendRedirect("forum.jsp"); } %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<% if (session.getAttribute("name")!=null) { response.sendRedirect("forum"); } %>
 
 	<!DOCTYPE html>
 	<html lang="en">
@@ -17,7 +18,7 @@
 
 	<body>
 
-		<input type="hidden" id="status" value="<%= request.getAttribute("status") %>">
+		<input type="hidden" id="status" value="${status }">
 
 		<header class="header">
 			<div class="container navbar">
@@ -28,10 +29,10 @@
 				<nav>
 					<ul class="nav-items">
 						<li class="nav-item">
-							<a class="nav-link" href="index.jsp">Trang chủ</a>
+							<a class="nav-link" href="index">Trang chủ</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="forum.jsp">Diễn đàn</a>
+							<a class="nav-link" href="forum">Diễn đàn</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link html-active" href="#">Đăng nhập</a>
@@ -69,29 +70,41 @@
 		</section>
 
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-		
-		<% String status = request.getParameter("status"); %>
-			
-		<% if (status != null && !status.isEmpty()) { %>
+
+		<c:if test="${not empty status}">
+			    <c:set var="status" value="${status}" />
+			    <c:choose>
+			        <c:when test="${status eq 'error wrong info'}">
+			        	<c:set var="title" value="Sorry" />
+			            <c:set var="message" value="Sai mật khẩu hoặc email" />
+			            <c:set var="alertType" value="error" />
+			        </c:when>
+			        <c:when test="${status eq 'registration success'}">
+			        	<c:set var="title" value="Chúc mừng" />
+			            <c:set var="message" value="Đăng kí tài khoản thành công" />
+			            <c:set var="alertType" value="success" />
+			        </c:when>
+			        <c:when test="${status eq 'success deleted user'}">
+			        	<c:set var="title" value="Chúc mừng" />
+			            <c:set var="message" value="Xoá tài khoản thành công" />
+			            <c:set var="alertType" value="success" />
+			        </c:when>
+			        <c:when test="${status eq 'success logout'}">
+			        <c:set var="title" value="Chúc mừng" />
+			            <c:set var="message" value="Đăng xuất thành công" />
+			            <c:set var="alertType" value="success" />
+			        </c:when>
+	
+			    </c:choose>
+
 			    <script type="text/javascript">
-			        var status = "<%= status %>";
-			        
-			        if (status == "error wrong info") {
-			        	swal("Sorry", "Sai mật khẩu hoặc email", "error");
-			        } else if (status === "registration success") {
-			        	swal("Congrats", "Đăng kí tài khoản thành công", "success");
-			        } else if (status == "success deleted user") {
-						swal("Success", "Xoá tài khoản thành công", "success");
-			        }
+				    var status = "${status}";
+				    if (status) {
+				        swal("${title}", "${message}", "${alertType}");
+				        <c:remove var="status" scope="session" />
+				    }
 			    </script>
-		<% } %>
-			
-		<%-- Remove the "status" query parameter from the URL --%>
-		<script type="text/javascript">
-			if ((window.location.search.indexOf('status=') > -1)) {
-			 	window.history.replaceState({}, document.title, window.location.pathname);
-			}
-		</script>
+			</c:if>
 
 		<script>
 			document.addEventListener("DOMContentLoaded", function() {

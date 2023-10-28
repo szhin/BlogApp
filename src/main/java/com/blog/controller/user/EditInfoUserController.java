@@ -1,4 +1,4 @@
-package com.blog.controller;
+package com.blog.controller.user;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -24,7 +24,8 @@ public class EditInfoUserController extends HttpServlet {
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int userId = (int) request.getSession().getAttribute("userId");
+        HttpSession session = request.getSession();
+    	int userId = (int) request.getSession().getAttribute("userId");
         User userLogin = userDAO.get(userId);
         
         String newName = request.getParameter("name");    
@@ -43,7 +44,7 @@ public class EditInfoUserController extends HttpServlet {
                 if (!userService.checkEmailEditProfile(newEmail, userId)) {
                     User updatedUser = new User(newName, newEmail, confirmPass, newMobile, userId);
                     userDAO.update(updatedUser);
-                    HttpSession session = request.getSession();
+       
                     String fullname = newName;
                     session.setAttribute("fullname", fullname);
         			session.setAttribute("userEmail", newEmail);
@@ -51,23 +52,27 @@ public class EditInfoUserController extends HttpServlet {
         			session.setAttribute("userPassword",confirmPass);
         			session.setAttribute("name", fullname.substring(fullname.lastIndexOf(" ") + 1));	
         			
-                    request.setAttribute("status", "success edit info");
-                    response.sendRedirect("setting.jsp?status=" + request.getAttribute("status"));
+                    session.setAttribute("status", "success edit info");
+                    System.out.println("status editInfo: " + session.getAttribute("status"));
+                    response.sendRedirect(request.getContextPath() + "/setting.jsp");
                 // Không tìm thấy hàng nào trùng email của user đang login
                 } else {
                 	System.out.println("Lỗi 1");
-                    request.setAttribute("status", "warning email already");
-                    response.sendRedirect("editProfile.jsp?status=" + request.getAttribute("status"));
+                    session.setAttribute("status", "warning email already");
+                    System.out.println("status editInfo: " + session.getAttribute("status"));
+                    response.sendRedirect(request.getContextPath() + "/editProfile.jsp");
                 }
             } else {
             	System.out.println("Lỗi 2");
-                request.setAttribute("status", "error wrong password");
-                response.sendRedirect("editProfile.jsp?status=" + request.getAttribute("status"));
+            	session.setAttribute("status", "error wrong password");
+                System.out.println("status editInfo: " + session.getAttribute("status"));
+                response.sendRedirect(request.getContextPath() + "/editProfile.jsp");
             }
         } else {
         	System.out.println("Lỗi 3");
-            request.setAttribute("status", "error get info");
-            response.sendRedirect("editProfile.jsp?status=" + request.getAttribute("status"));
+        	session.setAttribute("status", "error get info");
+            System.out.println("status editInfo: " + session.getAttribute("status"));
+            response.sendRedirect(request.getContextPath() + "/editProfile.jsp");
         }
     }
 }

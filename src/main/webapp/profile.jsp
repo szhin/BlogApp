@@ -7,8 +7,11 @@
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<% if (session.getAttribute("name")==null) { response.sendRedirect("forum.jsp"); } %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<% if (session.getAttribute("name")==null) { response.sendRedirect(request.getContextPath() + "/forum"); } %>
       <!DOCTYPE html>
       <html lang="en">
 
@@ -21,18 +24,16 @@
       </head>
 
       <body>
-            <input type="hidden" id="status" value="<%= request.getAttribute("status") %>">
+            <input type="hidden" id="status" value="${status }">
 
             <div id="forum">
                   <div id="sidebar">
                   	<div style="position: fixed; top: 50px;">
                         <div id="profile-image" style="background-image: url(./images/default-img-profile.jpeg)">
                         </div>
-                        <% if (session.getAttribute("name") != null)  { %>
 	                 		<div id="profile-name">
-	                    		<%= session.getAttribute("fullname") %>
-	                  		</div>
-	              		<% } %>
+	                    		${fullName }
+	                  		</div>       
                         <div id="profile-description">Always learning, always <br>innovating!</div>
                         <div id="social-icons">
                               <a href="https://github.com/" target="_blank" id="sidebar-icon"><img
@@ -40,15 +41,15 @@
                               <a href="https://facebook.com/" target="_blank" id="sidebar-icon"><img
                                           src="./images/icons/fb.png"></a>
                         </div>
-                        <a href="index.jsp" id="sidebar-items">
+                        <a href="index" id="sidebar-items">
                               <span id="sidebar-icon"><img src="./images/icons/home.png"></span>
                               <span id="home-text">Trang chủ</span>
                         </a>
-                        <a href="forum.jsp" id="sidebar-items">
+                        <a href="forum" id="sidebar-items">
                               <span id="sidebar-icon"><img src="./images/icons/forum.png"></span>
                               <span id="home-text">Diễn đàn</span>
                         </a>
-                        <a href="profile.jsp" id="sidebar-items">
+                        <a href="profile" id="sidebar-items">
                               <span id="sidebar-icon"><img src="./images/icons/create-post.png"></span>
                               <span id="home-text" class="active-forum">Đăng bài</span>
                         </a>
@@ -75,40 +76,29 @@
                                    </div>
                               </div>
                         </section>
-						
-					<% 
-					if (session.getAttribute("name") !=null ) {
-					    BlogService blogService = new BlogService();
-						
-					    int userId = (int) request.getSession().getAttribute("userId");
-					    
-					    if (blogService.isHaveBlog(userId)) {
-					%>
-					    <h2 class="collection-blog">Bài viết của bạn</h2>
-					<%
-					        for (Blog blog : blogService.getListUserBlogs()) {
-					            String fullDateTime = blog.getCreationDate().toString();
-					            String dateOnly = fullDateTime.split(" ")[0];
-					%>
-					            <div class="your-blog-container">
-					                <a class="your-blog-title" href="blog?id=<%= blog.getId() %>"><%= blog.getTitle() %></a>
-					                <span class="your-blog-time"><%= dateOnly %></span>
-					               	<div class="icon-dispatcher">
-					               		<a class="edit-icon" href="editBlog?id=<%= blog.getId() %>">
-					               			<span style="font-size: 12px;">Sửa</span> <img src="./images/icons/edit.png">
-					               		</a>
-					               	</div>
-					            </div>
-					<%
-					        }
 					
-					    } else {
-					%>
-					    <h2 class="collection-blog">Bạn chưa tạo bài viết nào</h2>
-					<%
-					    }
-					}
-					%>
+					<c:choose>
+					    <c:when test="${isHaveBlog}">
+					        <h2 class="collection-blog">Bài viết của bạn</h2>
+					        <c:forEach items="${blogList}" var="blog">
+					            <c:set var="fullDateTime" value="${blog.getCreationDate().toString()}" />
+					            <c:set var="dateOnly" value="${fullDateTime.split(' ')[0]}" />
+					
+					            <div class="your-blog-container">
+					                <a class="your-blog-title" href="blog?id=${blog.id}">${blog.title}</a>
+					                <span class="your-blog-time">${dateOnly}</span>
+					                <div class="icon-dispatcher">
+					                    <a class="edit-icon" href="editBlog?id=${blog.id}">
+					                        <span style="font-size: 12px;">Sửa</span> <img src="./images/icons/edit.png">
+					                    </a>
+					                </div>
+					            </div>
+					        </c:forEach>
+					    </c:when>
+					    <c:otherwise>
+					        <h2 class="collection-blog">Bạn chưa tạo bài viết nào</h2>
+					    </c:otherwise>
+					</c:choose>
 						
 
                   </div>
@@ -137,33 +127,50 @@
 
             </script>
 			<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-			<%-- Check for the "status" query parameter --%>
-			<% String status = request.getParameter("status"); %>
-			
-			<% if (status != null && !status.isEmpty()) { %>
+			<c:if test="${not empty status}">
+			    <c:set var="status" value="${status}" />
+			    <c:choose>
+			        <c:when test="${status eq 'success creating a post'}">
+			        	<c:set var="title" value="Chúc mừng" />
+			            <c:set var="message" value="Tạo blog thành công" />
+			            <c:set var="alertType" value="success" />
+			        </c:when>
+			        <c:when test="${status eq 'error when create post'}">
+			        	<c:set var="title" value="Cảnh báo" />
+			            <c:set var="message" value="Tạo blog không thành công" />
+			            <c:set var="alertType" value="warning" />
+			        </c:when>
+			        <c:when test="${status eq 'login success'}">
+			        <c:set var="title" value="Chúc mừng" />
+			            <c:set var="message" value="Đăng nhập thành công" />
+			            <c:set var="alertType" value="success" />
+			        </c:when>
+			        <c:when test="${status eq 'success edit blog'}">
+			        	<c:set var="title" value="Chúc mừng" />
+			            <c:set var="message" value="Chỉnh sửa thành công" />
+			            <c:set var="alertType" value="success" />
+			        </c:when>
+			        <c:when test="${status eq 'success deleted blog'}">
+			        	<c:set var="title" value="Chúc mừng" />
+			            <c:set var="message" value="Xoá blog thành công" />
+			            <c:set var="alertType" value="success" />
+			        </c:when>
+				        <c:when test="${status eq 'warning delete cancel'}">
+			        	<c:set var="title" value="Chúc mừng" />
+			            <c:set var="message" value="Bạn đã quyết định không xoá blog" />
+			            <c:set var="alertType" value="warning" />
+			        </c:when>
+			    </c:choose>
+
 			    <script type="text/javascript">
-			        var status = "<%= status %>";
-			        if (status == "success") {
-			            swal("Success", "Your post created success", "success");
-			        } else if (status == "error when create post") {
-			            swal("Oh no", "Wrong something when create post", "warning");
-			        } else if (status == "login success") {
-			            swal("Oh yeah!", "Bạn đã đăng nhập thành công", "success");
-			        } else if (status == "Success edit blog") {
-			        	 swal("Oh yeah!", "Bạn đã chỉnh sửa blog thành công", "success");
-			        } else if (status == "success deleted blog") {
-			        	 swal("Success", "Bạn đã xoá blog thành công", "success");
-			        }
-			
+				    var status = "${status}";
+				    if (status) {
+				        swal("${title}", "${message}", "${alertType}");
+				        <c:remove var="status" scope="session" />
+				    }
 			    </script>
-			<% } %>
-			
-			<%-- Remove the "status" query parameter from the URL --%>
-			<script type="text/javascript">
-			    if (window.location.search.indexOf('status=') > -1) {
-			        window.history.replaceState({}, document.title, window.location.pathname);
-			    }
-			</script>
+			</c:if>
+
 			
       </body>
 

@@ -11,10 +11,7 @@ import java.io.IOException;
 
 import com.blog.service.UserService;
 
-/**
- * Servlet implementation class Login
- */
-@WebServlet("/login")
+@WebServlet(name = "login", value="/login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -22,15 +19,13 @@ public class Login extends HttpServlet {
 
 		String uemail = request.getParameter("email");
 		String upw = request.getParameter("password");
-		System.out.println(uemail);
-		
+
 		HttpSession session = request.getSession();
 
-		
 		UserService userService = new UserService();
 			
 		if (userService.login(uemail, upw)) {
-			System.out.println("hello");
+			
 			int userId = userService.getIdUserLogin();
 			session.setAttribute("userId", userId);
 			
@@ -40,15 +35,16 @@ public class Login extends HttpServlet {
 			session.setAttribute("userEmail", userService.getUemailLogin());
 			session.setAttribute("userPhone", userService.getUphoneLogin());
 			session.setAttribute("userPassword", userService.getUpasswordLogin());
-			session.setAttribute("name", fullname.substring(fullname.lastIndexOf(" ") + 1));	
-			
-			request.setAttribute("status", "login success");
-			response.sendRedirect("profile.jsp?status=" + request.getAttribute("status"));
+			session.setAttribute("name", fullname.substring(fullname.lastIndexOf(" ") + 1));		
+			session.setAttribute("status", "login success");
+			System.out.println("status login: " + session.getAttribute("status"));
+
+			response.sendRedirect(request.getContextPath() + "/profile");
 			
 		} else {
-			System.out.println("bye");
-			request.setAttribute("status", "error wrong info");
-			response.sendRedirect("login.jsp?status=" + request.getAttribute("status"));
+			session.setAttribute("status", "error wrong info");
+			System.out.println("status login: " + session.getAttribute("status"));
+			response.sendRedirect(request.getContextPath() + "/login.jsp");
 		}
 
 	}

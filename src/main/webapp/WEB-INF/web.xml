@@ -1,77 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" id="WebApp_ID" version="6.0">
-  <display-name>signup</display-name>
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index</welcome-file>
   </welcome-file-list>
-  <servlet>
+    <servlet>
     <description></description>
-    <display-name>RegistrationServlet</display-name>
-    <servlet-name>RegistrationServlet</servlet-name>
-    <servlet-class>com.bang.RegistrationServlet</servlet-class>
+    <display-name>ProfileController</display-name>
+    <servlet-name>ProfileController</servlet-name>
+    <servlet-class>com.blog.controller.components.ProfileController</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>RegistrationServlet</servlet-name>
-    <url-pattern>/RegistrationServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>Login</display-name>
-    <servlet-name>Login</servlet-name>
-    <servlet-class>com.bang.Login</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Login</servlet-name>
-    <url-pattern>/Login</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>Logout</display-name>
-    <servlet-name>Logout</servlet-name>
-    <servlet-class>com.bang.Logout</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Logout</servlet-name>
-    <url-pattern>/Logout</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>CreatePost</display-name>
-    <servlet-name>CreatePost</servlet-name>
-    <servlet-class>com.bang.CreatePost</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>CreatePost</servlet-name>
-    <url-pattern>/CreatePost</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>Blog</display-name>
-    <servlet-name>Blog</servlet-name>
-    <servlet-class>com.bang.Blog</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Blog</servlet-name>
-    <url-pattern>/Blog</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>Forum</display-name>
-    <servlet-name>Forum</servlet-name>
-    <servlet-class>com.bang.Forum</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Forum</servlet-name>
-    <url-pattern>/Forum</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>EditBlogController</display-name>
-    <servlet-name>EditBlogController</servlet-name>
-    <servlet-class>com.blog.controller.EditBlogController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>EditBlogController</servlet-name>
-    <url-pattern>/EditBlogController</url-pattern>
+    <servlet-name>ProfileController</servlet-name>
+    <url-pattern>/ProfileController</url-pattern>
   </servlet-mapping>
 </web-app>
