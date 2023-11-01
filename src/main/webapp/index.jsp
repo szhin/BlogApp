@@ -6,17 +6,19 @@
 
       <head>
            	<%@include file="./views/common/meta.jsp" %>
-            <title>AnhBang Blog</title>
-            <link rel="stylesheet" href="./resources/css/general.css">
-            <link rel="stylesheet" href="./resources/css/main-styles.css">
+           	
+            <title>AnhBang Blog</title>     
+            
       </head>
 
       <body>
 
-            <%@include file="./views/components/indexNavbar.jsp" %>
+            <%@include file="./views/common/navbarIndex.jsp" %>
             
-            <%@include file="./views/components/contentIndex.jsp" %>
+            <%@include file="./views/components/content/index.jsp" %>
 
+			<%@include file="./views/common/footer.jsp" %>
+	
 			<c:if test="${not empty status }">
            		<c:set var="status" value="${status }" />
 	            <script type="text/javascript">

@@ -16,11 +16,14 @@
 					
 					<%@include file="./views/common/leftSideBar.jsp" %>
 				
-					<%@include file="./views/components/contentConfirmDelete.jsp" %>
+					<%@include file="./views/components/content/confirmDelete.jsp" %>
 					
 					<%@include file="./views/common/rightSideBar.jsp" %>
 				
 				</div>
+				
+				<%@include file="./views/common/footer.jsp" %>
+				
 				<c:if test="${not empty status }">
 					<c:set var="status" value="${status }" />
 					<script type="text/javascript">

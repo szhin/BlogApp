@@ -9,8 +9,7 @@
 					<%@include file="./views/common/meta.jsp" %>
 					<title>Cài đặt</title>
 					<link rel="stylesheet" href="alert/dist/sweetalert.css">
-					<link rel="stylesheet" href="./resources/css/forum-styles.css">
-					<link rel="stylesheet" href="./resources/css/setting.css">
+					
 			</head>
 
 			<body>
@@ -19,12 +18,12 @@
 				<div id="forum">
 					<%@include file="./views/common/leftSideBar.jsp" %>
 
-					<%@include file="./views/components/contentSetting.jsp" %>
+					<%@include file="./views/components/content/setting.jsp" %>
 						
 					<%@include file="./views/common/rightSideBar.jsp" %>
 				
 				</div>
-
+				<%@include file="./views/common/footer.jsp" %>
 				<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 				<c:if test="${not empty status}">
 					<c:set var="status" value="${status}" />

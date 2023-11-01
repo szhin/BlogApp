@@ -8,8 +8,7 @@
 			<head>
 					<%@include file="./views/common/meta.jsp" %>
 					<title>Hồ sơ</title>
-					<link rel="stylesheet" href="alert/dist/sweetalert.css">
-					<link rel="stylesheet" href="./resources/css/forum-styles.css">
+					<link rel="stylesheet" href="alert/dist/sweetalert.css">					
 			</head>
 
 			<body>
@@ -19,11 +18,13 @@
 					
 					<%@include file="./views/common/leftSideBar.jsp" %>
 					
-					<%@include file="./views/components/contentProfile.jsp" %>			
+					<%@include file="./views/components/content/profile.jsp" %>			
 
 					<%@include file="./views/common/rightSideBar.jsp" %>
 				
 				</div>
+				
+				<%@include file="./views/common/footer.jsp" %>
 				<script>
 					const createPostButton = document.getElementById('show-create-post');
 					const overlay = document.getElementById('overlay');

@@ -9,9 +9,6 @@
 		<%@include file="./views/common/meta.jsp" %>
 		<title>Đăng nhập</title>
 		<link rel="stylesheet" href="alert/dist/sweetalert.css">
-		<link rel="stylesheet" href="./resources/css/general.css">
-		<link rel="stylesheet" href="./resources/css/main-styles.css">
-		<link rel="stylesheet" href="./resources/css/form-styles.css">
 	</head>
 
 	<body>
@@ -20,8 +17,10 @@
 
 		<%@include file="./views/common/navbar.jsp" %>
 		
-		<%@include file="./views/components/contentLogin.jsp" %>
+		<%@include file="./views/components/content/login.jsp" %>
 
+		<%@include file="./views/common/footer.jsp" %>
+		
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		<c:if test="${not empty status}">
 			    <c:set var="status" value="${status}" />

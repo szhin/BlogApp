@@ -21,10 +21,9 @@ public class Login extends HttpServlet {
 		String upw = request.getParameter("password");
 
 		HttpSession session = request.getSession();
-		session.setAttribute("pageTitle", "Đăng nhập");
 
-		UserService userService = new UserService();
-			
+        UserService userService = new UserService();
+        // Login
 		if (userService.login(uemail, upw)) {
 			
 			int userId = userService.getIdUserLogin();

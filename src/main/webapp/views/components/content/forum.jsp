@@ -1,6 +1,11 @@
+<!-- Content -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+		
+		<head>
+			<link rel="stylesheet" href="./resources/css/forum-styles.css">
+		</head>
+		
 		<div id="content" class="gap-forum-content">
 
 			<c:forEach items="${blogList }" var="blog">

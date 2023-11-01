@@ -23,7 +23,6 @@ public class Logout extends HttpServlet {
 		System.out.println("status logout: " + session.getAttribute("status"));
 		response.sendRedirect(request.getContextPath() + "/login.jsp");
 		session.invalidate();
-
 	}
 
 }

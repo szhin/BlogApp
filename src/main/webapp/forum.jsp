@@ -7,7 +7,7 @@
 		
 			<%@include file="./views/common/meta.jsp" %>
 			<title>Diễn đàn</title>
-			<link rel="stylesheet" href="./resources/css/forum-styles.css">
+			
 		</head>
 
 		<body>
@@ -15,11 +15,13 @@
 				
 				<%@include file="./views/common/leftSideBar.jsp" %>
 				
-				<%@include file="./views/components/contentForum.jsp" %>
+				<%@include file="./views/components/content/forum.jsp" %>
 				
 				<%@include file="./views/common/rightSideBar.jsp" %>
 			
 			</div>
+			
+			<%@include file="./views/common/footer.jsp" %>
 			
 			<c:if test="${not empty status }">
 				<c:set var="status" value="${status }" />

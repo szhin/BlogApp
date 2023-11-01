@@ -29,11 +29,11 @@ public class IndexController extends HttpServlet {
         String imagePath = request.getContextPath() + "/resources/images/index-1.jpeg";
         String imageHeroPath = request.getContextPath() + "/resources/images/background-index.jpeg";
 
-        request.setAttribute("loginLink", loginLink);
-        request.setAttribute("loginText", loginText);
-        request.setAttribute("registerLink", registerLink);
-        request.setAttribute("registerText", registerText);
-        request.setAttribute("loginName", loginName);
+        session.setAttribute("loginLink", loginLink);
+        session.setAttribute("loginText", loginText);
+        session.setAttribute("registerLink", registerLink);
+        session.setAttribute("registerText", registerText);
+        session.setAttribute("loginName", loginName);
         request.setAttribute("imagePath", imagePath);
         request.setAttribute("imageHeroPath", imageHeroPath);
         

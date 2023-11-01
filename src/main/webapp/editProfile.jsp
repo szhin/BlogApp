@@ -9,8 +9,7 @@
 					<%@include file="./views/common/meta.jsp" %>
 					<title>Edit profile</title>
 					<link rel="stylesheet" href="alert/dist/sweetalert.css">
-					<link rel="stylesheet" href="./resources/css/forum-styles.css">
-					<link rel="stylesheet" href="./resources/css/setting.css">
+					
 			</head>
 
 			<body>
@@ -20,11 +19,13 @@
 				
 					<%@include file="./views/common/leftSideBar.jsp" %>
 					
-					<%@include file="./views/components/contentEditProfile.jsp" %>
+					<%@include file="./views/components/content/editProfile.jsp" %>
 						
 					<%@include file="./views/common/rightSideBar.jsp" %>
 				
 				</div>
+				
+				<%@include file="./views/common/footer.jsp" %>
 
 				<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

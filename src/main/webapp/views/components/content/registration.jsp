@@ -1,10 +1,16 @@
+<!-- Content -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
+	<head>
+		<link rel="stylesheet" href="./resources/css/general.css">
+		<link rel="stylesheet" href="./resources/css/form-styles.css">
+	</head>
+	
 	<section class="section-hero" style="background-image: url(./resources/images/background-login.jpeg);">
 		<div class="overlay"></div>
 		<div class="container hero">
 			<!-- Sign in  Form -->
-			<section class="login-form">
+			<section class="register-form">
 				<h2 class="form-title">Đăng kí</h2>
 				<form method="POST" action="register" id="register-form">
 					<div class="form-group">

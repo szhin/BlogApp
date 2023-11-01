@@ -1,5 +1,10 @@
+<!-- Content -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+		
+		<head>
+			<link rel="stylesheet" href="./resources/css/forum-styles.css">
+		</head>
 
 		<div id="content" class="gap-profile-content">
 			<section class="create-blog-form">
@@ -31,7 +36,8 @@
 							<span class="your-blog-time">${dateOnly}</span>
 							<div class="icon-dispatcher">
 								<a class="edit-icon" href="editBlog?id=${blog.id}">
-									<span style="font-size: 12px;">Sửa</span> <img src="./resources/images/icons/edit.png">
+									<span style="font-size: 12px;">Sửa</span>
+									<img src="./resources/images/icons/edit.png">
 								</a>
 							</div>
 						</div>

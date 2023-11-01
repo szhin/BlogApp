@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 		<div id="sidebar">
 			<div style="position: fixed; top: 50px;">
 				<c:if test="${not empty sessionScope.name }">
@@ -35,12 +36,15 @@
 							<span id="sidebar-icon"><img src="./resources/images/icons/create-post.png"></span>
 							<span id="home-text">Đăng bài</span>
 						</a>
-						<c:if test="${not empty sessionScope.name}">
-							<a href="setting.jsp" id="sidebar-items" style="position: fixed; bottom: 60px;">
-								<span id="sidebar-icon"><img src="./resources/images/icons/setting.png"></span>
-								<span id="home-text" class="sidebar-setting">Cài đặt</span>
-							</a>
-						</c:if>
+
+						<a href="setting.jsp" id="sidebar-items">
+							<span id="sidebar-icon"><img src="./resources/images/icons/setting.png"></span>
+							<span id="home-text" class="sidebar-setting">Cài đặt</span>
+						</a>
+						<a href="logout" id="sidebar-items">
+							<span id="sidebar-icon"><img src="./resources/images/icons/logout.png"></span>
+							<span id="home-text" style="color: rgb(82, 156, 170);">Đăng xuất</span>
+						</a>
 					</c:otherwise>
 				</c:choose>
 			</div>

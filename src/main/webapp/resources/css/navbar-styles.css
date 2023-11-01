@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,400;1,700&display=swap");
+
+.header {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 3rem;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  z-index: 3;
+}
+
+.navbar {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.brand {
+  color: #fff;
+  padding-top: 1.12rem;
+  padding-bottom: 0.7rem;
+  font-weight: 800;
+  font-size: 3rem;
+  position: relative;
+  line-height: 1.1;
+  text-transform: uppercase;
+  align-items: center;
+  z-index: 3;
+}
+
+.brand small {
+  font-size: 3rem;
+  color: #3bc9db;
+  /* margin-left: -0.8rem; */
+}
+
+.brand span {
+  color: #fff;
+  line-height: 1.1;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  display: block;
+  font-weight: 600;
+  letter-spacing: 0.2rem;
+}
+
+.nav-items {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-item {
+  list-style: none;
+}
+
+.nav-item .html-active {
+  color: #66d9e8;
+} 
+.nav-link {
+  padding: 1.92rem 2.5rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: 0.1rem;
+  transition: all 0.3s;
+}
+
+.nav-link:hover {
+  color: #66d9e8;
+}
