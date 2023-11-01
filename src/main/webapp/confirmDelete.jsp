@@ -8,7 +8,7 @@
 			<head>
 				<%@include file="./views/common/meta.jsp" %>
 				<title>Xoá tài khoản</title>
-				<link rel="stylesheet" href="./resources/css/forum-styles.css">
+				
 			</head>
 
 			<body>

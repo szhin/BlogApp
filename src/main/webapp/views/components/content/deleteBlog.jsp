@@ -3,6 +3,7 @@
 	
 	<head>		
 		<link rel="stylesheet" href="./resources/css/confirm-delete.css">
+		<link rel="stylesheet" href="./resources/css/forum-styles.css">
 	</head>
 	<div id="content" class="content-confirm-delete">
 		<div class="deleteUser">
