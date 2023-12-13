@@ -8,11 +8,9 @@
 			<head>
 				<%@include file="./views/common/meta.jsp" %>
 				<title>Change password</title>
-				<link rel="stylesheet" href="alert/dist/sweetalert.css">
 			</head>
 
 			<body>
-				<input type="hidden" id="status" value="${status }">
 
 				<div id="forum">
 				

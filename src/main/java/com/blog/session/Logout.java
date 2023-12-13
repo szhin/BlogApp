@@ -21,7 +21,7 @@ public class Logout extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("status", "success logout");
 		System.out.println("status logout: " + session.getAttribute("status"));
-		response.sendRedirect(request.getContextPath() + "/login.jsp");
+		response.sendRedirect(response.encodeURL(request.getContextPath() + "/login.jsp"));
 		session.invalidate();
 	}
 

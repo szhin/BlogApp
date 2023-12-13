@@ -56,13 +56,14 @@ public class EditBlogController extends HttpServlet {
             
             session.setAttribute("status", "success edit blog");
             System.out.println("status editBlog: " + session.getAttribute("status"));
-            response.sendRedirect(request.getContextPath() + "/profile");
+            response.sendRedirect(response.encodeURL(request.getContextPath() + "/profile"));
             
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.setAttribute("status", null);
 			System.out.println("status editBlog: " + session.getAttribute("status"));
-			request.getRequestDispatcher("editBlog.jsp").forward(request, response);
+//			request.getRequestDispatcher("editBlog.jsp").forward(request, response);
+			response.sendRedirect(response.encodeURL(request.getContextPath() + "/editBlog.jsp"));
 		}
         
     }

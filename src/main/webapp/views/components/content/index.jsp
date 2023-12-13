@@ -17,7 +17,7 @@
 	      <section class="section-1">
 	            <div class="container welcome">
 	                  <div class="welcome-left">
-	                        <img class="welcome-img" src="${imagePath }" alt="Image Index">
+	                        <img class="welcome-img" src="./resources/images/index-1.jpeg" alt="Image Index">
 	                  </div>
 	                  <div class="welcome-right">
 	                        <span class="subheading">Lời mở đầu</span>

@@ -8,7 +8,6 @@
 	<head>
 		<%@include file="./views/common/meta.jsp" %>
 		<title>Đăng nhập</title>
-		<link rel="stylesheet" href="alert/dist/sweetalert.css">
 	</head>
 
 	<body>

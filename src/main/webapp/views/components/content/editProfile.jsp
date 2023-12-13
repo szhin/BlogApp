@@ -32,7 +32,7 @@
 							value="Xác nhận chỉnh sửa" />
 					</div>
 				</form>
-				<a href="changePassword.jsp" class="change-password">Thay đổi mật khẩu</a>
+				<a href="<%= response.encodeURL(request.getContextPath() + "/changePassword.jsp") %>" class="change-password">Thay đổi mật khẩu</a>
 			</section>
 		</div>
 	</div>

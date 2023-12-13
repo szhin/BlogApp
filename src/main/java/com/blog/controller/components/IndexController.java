@@ -21,23 +21,20 @@ public class IndexController extends HttpServlet {
 		
 		String name=(String) session.getAttribute("name"); 
 		
-		String loginLink= (name==null)? "login.jsp" : request.getContextPath() + "/profile"; 
+		String loginLink= (name==null)? response.encodeURL(request.getContextPath() + "/login.jsp") : response.encodeURL(request.getContextPath() + "/profile"); 
 		String loginText=(name==null) ? "Đăng nhập" : "Hồ sơ";
-        String registerLink=(name==null) ? "registration.jsp" : "logout"; 
+        String registerLink=(name==null) ? response.encodeURL(request.getContextPath() + "/registration.jsp") : response.encodeURL(request.getContextPath() + "/logout"); 
         String registerText=(name==null) ? "Đăng ký" : "Đăng xuất" ;
         String loginName=(name==null) ? "" : name ;
-        String imagePath = request.getContextPath() + "/resources/images/index-1.jpeg";
-        String imageHeroPath = request.getContextPath() + "/resources/images/background-index.jpeg";
 
         session.setAttribute("loginLink", loginLink);
         session.setAttribute("loginText", loginText);
         session.setAttribute("registerLink", registerLink);
         session.setAttribute("registerText", registerText);
         session.setAttribute("loginName", loginName);
-        request.setAttribute("imagePath", imagePath);
-        request.setAttribute("imageHeroPath", imageHeroPath);
         
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+//        request.getRequestDispatcher("index.jsp").forward(request, response);
+        response.sendRedirect(response.encodeURL(request.getContextPath() + "/index.jsp"));
 	}
 
 

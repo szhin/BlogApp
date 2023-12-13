@@ -8,12 +8,10 @@
 			<head>
 					<%@include file="./views/common/meta.jsp" %>
 					<title>Chỉnh sửa blog</title>
-					<link rel="stylesheet" href="alert/dist/sweetalert.css">
 			</head>
 
 			<body>
-				<input type="hidden" id="status" value="${status }">
-
+			
 				<div id="forum">
 				
 					<%@include file="./views/common/leftSideBar.jsp" %>

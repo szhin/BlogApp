@@ -23,7 +23,7 @@
 					<div class="form-group form-button">
 						<input type="submit" name="signin" id="signin" class="form-submit" value="Login" />
 					</div>
-					<p>Don't have an account? <a href="registration.jsp" class="dispatcher">Sign up</a></p>
+					<p>Don't have an account? <a href="<%= response.encodeURL(request.getContextPath() + "/registration.jsp") %>" class="dispatcher">Sign up</a></p>
 				</form>
 
 			</section>

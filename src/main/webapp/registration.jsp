@@ -8,12 +8,9 @@
 	<head>
 		<%@include file="./views/common/meta.jsp" %>
 		<title>Đăng kí</title>
-		<link rel="stylesheet" href="alert/dist/sweetalert.css">
 	</head>
 
 	<body>
-
-		<input type="hidden" id="status" value="${status }">
 
 		<%@include file="./views/common/navbar.jsp" %>
 		

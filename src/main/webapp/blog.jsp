@@ -7,7 +7,7 @@
 		<head>
 			<%@include file="./views/common/meta.jsp" %>
 			<title>Blog</title>
-			<link rel="stylesheet" href="alert/dist/sweetalert.css">
+
 		</head>
 
 		<body>

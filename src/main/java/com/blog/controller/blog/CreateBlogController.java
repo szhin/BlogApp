@@ -42,6 +42,7 @@ public class CreateBlogController extends HttpServlet {
         }
 
         // Redirect to profile.jsp with status as a query parameter
-        response.sendRedirect(request.getContextPath() + "/profile");
+        response.sendRedirect(response.encodeURL(request.getContextPath() + "/profile"));
+        
     }
 }

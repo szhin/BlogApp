@@ -10,8 +10,8 @@
 
 			<c:forEach items="${blogList }" var="blog">
 				<div class="blog-container">
-					<a class="blog-category" href="entertain.jsp" style="background-color: #176B87; color: #fff;">Giải
-						trí</a>
+					<a class="blog-category" style="background-color: #176B87; color: #fff;">Giải
+						trí</a>						
 					<a class="your-blog-title" href="blog?id=${blog.getId() }">${blog.getTitle() }</a>
 					<div class="blog-details">
 						<span id="sidebar-icon"><img src="./resources/images/icons/schedule.png"></span>
@@ -21,4 +21,5 @@
 					</div>
 				</div>
 			</c:forEach>
+			
 		</div>

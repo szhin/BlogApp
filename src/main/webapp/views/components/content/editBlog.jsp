@@ -16,7 +16,7 @@
 						<div style="display: flex; gap: 2rem; align-items: center;">
 							<button type="submit" name="editBlogController" style="width: 55rem; margin-top: 0;">Chỉnh
 								sửa</button>
-							<a href="deleteBlog.jsp" style="color: red;">Xoá blog này</a>
+							<a href="<%= response.encodeURL(request.getContextPath() + "/deleteBlog.jsp") %>" style="color: red;">Xoá blog này</a>
 						</div>
 					</form>
 				</div>

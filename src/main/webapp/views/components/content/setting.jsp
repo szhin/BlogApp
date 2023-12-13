@@ -20,9 +20,9 @@
 					</p>
 
 				</div>
-				<a class="edit" href="editProfile.jsp">Sửa thông tin</a>
+				<a class="edit" href="<%= response.encodeURL(request.getContextPath() + "/editProfile.jsp") %>">Sửa thông tin</a>
 
-				<a class="delete" href="confirmDelete.jsp" style="color: red;">Xóa tài khoản</a>
+				<a class="delete" href="<%= response.encodeURL(request.getContextPath() + "/confirmDelete.jsp") %>" style="color: red;">Xóa tài khoản</a>
 			</div>
 		</div>
 	</div>

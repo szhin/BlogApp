@@ -26,8 +26,10 @@ public class ForumController extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("status", null);
 		System.out.println("status forum: " + session.getAttribute("status"));
-		
+		System.out.println("profile: " + session.getAttribute("status"));
 		request.getRequestDispatcher("forum.jsp").forward(request, response);
+//		response.sendRedirect(response.encodeURL(request.getContextPath() + "/forum.jsp"));
+
 	}
 
 }

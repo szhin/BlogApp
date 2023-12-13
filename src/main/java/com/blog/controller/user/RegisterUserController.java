@@ -39,7 +39,7 @@ public class RegisterUserController extends HttpServlet {
 		if (!upw.equals(reupw)) {
 			session.setAttribute("status", "error wrong repass");
 			System.out.println("status register: " + session.getAttribute("status"));
-			response.sendRedirect("registration.jsp?status=" + session.getAttribute("status"));
+			response.sendRedirect(response.encodeURL(request.getContextPath() + "/registration.jsp"));
 			return;
 		}
 		
@@ -53,12 +53,12 @@ public class RegisterUserController extends HttpServlet {
 				userDAO.insert(user);			
 				session.setAttribute("status", "registration success");
 				System.out.println("status register: " + session.getAttribute("status"));
-				response.sendRedirect("login.jsp?status=" + session.getAttribute("status"));
+				response.sendRedirect(response.encodeURL(request.getContextPath() + "/login.jsp"));
 	            System.out.println("A user has been inserted");
 			} else {
 				session.setAttribute("status", "warning email already");
 				System.out.println("status register: " + session.getAttribute("status"));
-				response.sendRedirect("registration.jsp?status=" + session.getAttribute("status"));
+				response.sendRedirect(response.encodeURL(request.getContextPath() + "/registration.jsp"));
 			}
 			
 		} catch (RuntimeException e) {

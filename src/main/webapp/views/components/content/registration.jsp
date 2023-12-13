@@ -37,7 +37,7 @@
 						<input type="submit" name="signup" id="signup" class="form-submit" value="Register" />
 					</div>
 
-					<p>Already have a account? <a href="login.jsp" class="dispatcher">Login here</a></p>
+					<p>Already have a account? <a href="<%= response.encodeURL(request.getContextPath() + "/login.jsp") %>" class="dispatcher">Login here</a></p>
 				</form>
 
 			</section>

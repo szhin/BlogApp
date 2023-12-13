@@ -1,6 +1,6 @@
 <!-- Content -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 		
 		<head>
 			<link rel="stylesheet" href="./resources/css/forum-styles.css">
@@ -33,9 +33,12 @@
 
 						<div class="your-blog-container">
 							<a class="your-blog-title" href="blog?id=${blog.id}">${blog.title}</a>
+							<%-- <a class="your-blog-title" href="${response.encodeURL(pageContext.request.contextPath + '/blog?id=' + blog.id)}">${blog.title}</a> --%>
 							<span class="your-blog-time">${dateOnly}</span>
 							<div class="icon-dispatcher">
-								<a class="edit-icon" href="editBlog?id=${blog.id}">
+							
+								<%-- <a class="edit-icon" href="${response.encodeURL(pageContext.request.contextPath + '/editBlog?id=' + blog.id)}"> --%>
+								<a class="edit-icon" href="editBlog?id=${blog.id}">	
 									<span style="font-size: 12px;">Sửa</span>
 									<img src="./resources/images/icons/edit.png">
 								</a>

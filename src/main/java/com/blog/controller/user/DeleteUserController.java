@@ -33,12 +33,12 @@ public class DeleteUserController extends HttpServlet {
 	    	session.setAttribute("status", "success deleted user");
 	    	System.out.println("status deleteUser: " + session.getAttribute("status"));
 		    session.invalidate();
-		    response.sendRedirect(request.getContextPath() + "/login.jsp");
+		    response.sendRedirect(response.encodeURL(request.getContextPath() + "/login.jsp"));
 
 	    } else if (cancelButton != null) {
 	    	session.setAttribute("status", "warning delete cancel");
 	    	System.out.println("status deleteUser: " + session.getAttribute("status"));
-	    	response.sendRedirect(request.getContextPath() + "/setting.jsp");
+	    	response.sendRedirect(response.encodeURL(request.getContextPath() + "/setting.jsp"));
 	    }
 	}
 

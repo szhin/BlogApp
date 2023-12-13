@@ -39,12 +39,12 @@ public class Login extends HttpServlet {
 			session.setAttribute("status", "login success");
 			System.out.println("status login: " + session.getAttribute("status"));
 
-			response.sendRedirect(request.getContextPath() + "/profile");
+			response.sendRedirect(response.encodeURL(request.getContextPath() + "/profile"));
 			
 		} else {
 			session.setAttribute("status", "error wrong info");
 			System.out.println("status login: " + session.getAttribute("status"));
-			response.sendRedirect(request.getContextPath() + "/login.jsp");
+			response.sendRedirect(response.encodeURL(request.getContextPath() + "/login.jsp"));
 		}
 
 	}

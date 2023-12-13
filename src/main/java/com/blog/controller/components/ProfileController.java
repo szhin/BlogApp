@@ -13,7 +13,7 @@ import java.util.List;
 import com.blog.model.Blog;
 import com.blog.service.BlogService;
 
-@WebServlet(name="profile", value = "/profile")
+@WebServlet(name="profile", value="/profile")
 public class ProfileController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -39,7 +39,10 @@ public class ProfileController extends HttpServlet {
 		request.setAttribute("isHaveBlog", isHaveBlog);
 		request.setAttribute("blogList", blogList);
 		
-		request.getRequestDispatcher("profile.jsp").forward(request, response);
+		System.out.println("profile: " + session.getAttribute("status"));
+		request.getRequestDispatcher("profile.jsp").forward(request, response);	
+//		response.sendRedirect(response.encodeURL(request.getContextPath() + "/profile.jsp"));
+		
 	}
 
 	

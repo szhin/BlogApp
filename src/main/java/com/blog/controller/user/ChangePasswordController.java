@@ -48,16 +48,16 @@ public class ChangePasswordController extends HttpServlet {
 				
 				 session.setAttribute("status", "success change password");
 		         System.out.println("status changePassword: " + session.getAttribute("status"));
-		         response.sendRedirect(request.getContextPath() + "/setting.jsp");
+		         response.sendRedirect(response.encodeURL(request.getContextPath() + "/setting.jsp"));
 			} else {
 				 session.setAttribute("status", "error wrong re-password");
 				 System.out.println("status changePassword: " + session.getAttribute("status"));
-		         response.sendRedirect(request.getContextPath() + "/changePassword.jsp");
+		         response.sendRedirect(response.encodeURL(request.getContextPath() + "/changePassword.jsp"));
 			}
 		} else {
 			session.setAttribute("status", "error wrong password");
 		    System.out.println("status changePassword: " + session.getAttribute("status"));
-		    response.sendRedirect(request.getContextPath() + "/changePassword.jsp");
+		    response.sendRedirect(response.encodeURL(request.getContextPath() + "/changePassword.jsp"));
 		} 
     }
 }

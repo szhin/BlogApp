@@ -54,25 +54,25 @@ public class EditInfoUserController extends HttpServlet {
         			
                     session.setAttribute("status", "success edit info");
                     System.out.println("status editInfo: " + session.getAttribute("status"));
-                    response.sendRedirect(request.getContextPath() + "/setting.jsp");
+                    response.sendRedirect(response.encodeURL(request.getContextPath() + "/setting.jsp"));
                 // Không tìm thấy hàng nào trùng email của user đang login
                 } else {
                 	System.out.println("Lỗi 1");
                     session.setAttribute("status", "warning email already");
                     System.out.println("status editInfo: " + session.getAttribute("status"));
-                    response.sendRedirect(request.getContextPath() + "/editProfile.jsp");
+                    response.sendRedirect(response.encodeURL(request.getContextPath() + "/editProfile.jsp"));
                 }
             } else {
             	System.out.println("Lỗi 2");
             	session.setAttribute("status", "error wrong password");
                 System.out.println("status editInfo: " + session.getAttribute("status"));
-                response.sendRedirect(request.getContextPath() + "/editProfile.jsp");
+                response.sendRedirect(response.encodeURL(request.getContextPath() + "/editProfile.jsp"));
             }
         } else {
         	System.out.println("Lỗi 3");
         	session.setAttribute("status", "error get info");
             System.out.println("status editInfo: " + session.getAttribute("status"));
-            response.sendRedirect(request.getContextPath() + "/editProfile.jsp");
+            response.sendRedirect(response.encodeURL(request.getContextPath() + "/editProfile.jsp"));
         }
     }
 }

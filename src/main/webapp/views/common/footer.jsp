@@ -6,7 +6,7 @@
 
 	<footer id="footer">
 		<div class="left">
-			<a class="brand" href="index">
+			<a class="brand" href="<%= response.encodeURL(request.getContextPath() + "/index") %>">
 				<small>A</small>B
 				<small> B</small>log
 				<span>We are one</span>
@@ -17,19 +17,19 @@
 		<div class="column">
 			<h4>Public Link</h4>
 			<div class="items">
-				<a href="index">Trang chủ</a>
-				<a href="forum">Diễn đàn</a>
-				<a href="login.jsp">Đăng nhập</a>
-				<a href="registration.jsp">Đăng kí</a>
+				<a href="<%= response.encodeURL(request.getContextPath() + "/index") %>">Trang chủ</a>
+				<a href="<%= response.encodeURL(request.getContextPath() + "/forum") %>">Diễn đàn</a>
+				<a href="<%= response.encodeURL(request.getContextPath() + "/login.jsp") %>">Đăng nhập</a>
+				<a href="<%= response.encodeURL(request.getContextPath() + "/registration.jsp") %>">Đăng kí</a>
 			</div>
 		</div>
 		<div class="column">
 			<h4>Private Link</h4>
 			<div class="items">
-				<a href="profile">Hồ sơ</a>
-				<a href="profile">Đăng bài</a>
-				<a href="setting.jsp">Cài đặt</a>
-				<a href="editProfile.jsp">Chỉnh sửa</a>
+				<a href="<%= response.encodeURL(request.getContextPath() + "/profile") %>">Hồ sơ</a>
+				<a href="<%= response.encodeURL(request.getContextPath() + "/profile") %>">Đăng bài</a>
+				<a href="<%= response.encodeURL(request.getContextPath() + "/setting.jsp") %>">Cài đặt</a>
+				<a href="<%= response.encodeURL(request.getContextPath() + "/editProfile.jsp") %>">Chỉnh sửa</a>
 			</div>
 		</div>
 		<div class="column">

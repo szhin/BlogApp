@@ -33,12 +33,12 @@ public class DeleteBlogController extends HttpServlet {
 	    if (deleteButton != null && blogDAO.delete(blogId)) {          	
 	    	session.setAttribute("status", "success deleted blog");
 	    	System.out.println("status deleteBlog: " + session.getAttribute("status"));
-		    response.sendRedirect(request.getContextPath() + "/profile");
+		    response.sendRedirect(response.encodeURL(request.getContextPath() + "/profile"));
 
 	    } else if (cancelButton != null) {
 	    	session.setAttribute("status", "warning delete cancel");
 	    	System.out.println("status deleteBlog: " + session.getAttribute("status"));
-	    	response.sendRedirect(request.getContextPath() + "/profile");
+	    	response.sendRedirect(response.encodeURL(request.getContextPath() + "/profile"));
 	    }
 	}
 

@@ -25,6 +25,7 @@ public class BlogController extends HttpServlet {
 		session.setAttribute("fullname", fullname);
 		
 		int blogId = Integer.parseInt(request.getParameter("id")); // Lấy ID của blog từ tham số truyền lên
+		System.out.println(blogId);
 	
 		RequestDispatcher dispatcher = null;
 			
@@ -39,14 +40,17 @@ public class BlogController extends HttpServlet {
 			request.setAttribute("blogTime", blogAndUserService.getBlogTime());
 			request.setAttribute("blogCreator", blogAndUserService.getBlogCreator());
 				
+//			dispatcher = request.getRequestDispatcher(response.encodeURL(request.getContextPath() + "/blog.jsp"));
 			dispatcher = request.getRequestDispatcher("blog.jsp");
 		} else {
 			session.setAttribute("status", "error when show blog");
 			System.out.println("status blog: " + session.getAttribute("status"));
-			dispatcher = request.getRequestDispatcher(request.getContextPath() + "/profile");
+			dispatcher = request.getRequestDispatcher(response.encodeURL(request.getContextPath() + "/profile"));
+		
 			System.out.println("Cannot find this blog");
 		}
 			
 		dispatcher.forward(request, response);
+		
     }
 }
